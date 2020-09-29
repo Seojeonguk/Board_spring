@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatisorg/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<select id="listAll" resultType="com.example.board.Service.BoardVO">
+		select * from board order by board_number desc
+	</select>
+	
+	<insert id="insert" parameterType="com.example.board.Service.BoardVO" >
+		INSERT INTO BOARD (
+			CODE,
+			TITLE,
+			CONTENT,
+			WRITER,
+			WRITE_DATE,
+			SEARCH_KEY,
+			BOARD_USE,
+			VIEW_CNT
+		) VALUES(
+			#{code},
+			#{title},
+			#{content},
+			#{writer},
+			#{write_date},
+			#{search_key},
+			'Y',
+			0
+		)
+	</insert>
+</mapper>
