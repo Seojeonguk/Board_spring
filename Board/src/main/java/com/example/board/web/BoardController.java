@@ -40,9 +40,30 @@ public class BoardController {
 		return "board/write";
 	}
 	
-	@RequestMapping(value="/board/writeAction.do")
+	@RequestMapping(value="/board/writeAction.do",method=RequestMethod.POST)
 	public String WriteAction(@ModelAttribute("BoardVO") BoardVO vo) throws Exception {
 		boardService.insert(vo);
+		return "redirect:/board/list.do";
+	}
+	
+	@RequestMapping(value="/board/view.do")
+	public String view(@ModelAttribute("BoardVO") BoardVO vo,Model model) throws Exception {
+		vo = boardService.select_vo(vo);
+		boardService.update_viewcnt(vo);
+		model.addAttribute("resultVO",vo);
+		return "board/view";
+	}
+	
+	@RequestMapping(value="/board/modify.do",method=RequestMethod.POST)
+	public String modify(@ModelAttribute("BoardVO") BoardVO vo,Model model) throws Exception {
+		
+		
+		return "board/modify";
+	}
+	
+	@RequestMapping(value="/board/modifyAction.do", method=RequestMethod.POST)
+	public String modifyAction(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
+		boardService.modify(vo);
 		return "redirect:/board/list.do";
 	}
 }

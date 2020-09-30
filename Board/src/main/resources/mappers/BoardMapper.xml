@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatisorg/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-	<select id="listAll" resultType="com.example.board.Service.BoardVO">
-		select * from board order by board_number desc
+	
+
+	<select id="listAll" resultType="BoardVO">
+		SELECT * FROM BOARD 
+		WHERE BOARD_USE = 'Y'
+		ORDER BY BOARD_NUMBER DESC
 	</select>
 	
-	<insert id="insert" parameterType="com.example.board.Service.BoardVO" >
+	<insert id="insert" parameterType="BoardVO" >
 		INSERT INTO BOARD (
 			CODE,
 			TITLE,
@@ -27,4 +31,20 @@
 			0
 		)
 	</insert>
+	
+	<select id="select_vo" parameterType="BoardVO" resultType="BoardVO">
+		SELECT * FROM BOARD WHERE BOARD_NUMBER = #{board_number}
+	</select>
+	
+	<update id="update_viewcnt" parameterType="BoardVO" >
+		UPDATE BOARD SET VIEW_CNT = VIEW_CNT+1
+		WHERE
+		BOARD_NUMBER = #{board_number}
+	</update>
+	
+	<update id="update" parameterType="BoardVO">
+		UPDATE BOARD SET
+		TITLE = #{title}, CONTENT = #{content}
+		WHERE BOARD_NUMBER = #{board_number}
+	</update>
 </mapper>

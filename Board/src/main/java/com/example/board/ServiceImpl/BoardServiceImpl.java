@@ -20,12 +20,26 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> listAll() throws Exception {
-		// TODO Auto-generated method stub
 		return boardDAO.listAll();
 	}
 
 	@Override
 	public int insert(BoardVO vo) throws Exception {
 		return boardDAO.insert(vo);
+	}
+	
+	@Override
+	public BoardVO select_vo(BoardVO vo) throws Exception  {
+		return boardDAO.select_vo(vo);
+	}
+	
+	@Override
+	public int update_viewcnt(BoardVO vo) throws Exception {
+		return boardDAO.update_viewcnt(vo);
+	}
+	
+	@Override
+	public int modify(BoardVO vo) throws Exception {
+		return boardDAO.modify(vo);
 	}
 }

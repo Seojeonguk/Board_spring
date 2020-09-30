@@ -17,7 +17,6 @@
 			<tr>
 				<td>번호</td>
 				<td>제목</td>
-				<td>이름</td>
 				<td>내용</td>
 				<td>조회수</td>
 			</tr>
@@ -25,8 +24,7 @@
 			<c:forEach var="row" items="${BoardList }">
 				<tr>
 					<td>${row.board_number }</td>
-					<td>${row.writer }</td>
-					<td><a href="${path}/board/view.do?bno=${row.board_number}">${row.title}</a></td>
+					<td><a href="${path}/board/view.do?board_number=${row.board_number}">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>
