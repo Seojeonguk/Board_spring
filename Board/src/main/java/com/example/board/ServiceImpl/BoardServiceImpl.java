@@ -19,8 +19,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		return boardDAO.listAll();
+	public List<BoardVO> listAll(BoardVO vo) throws Exception {
+		return boardDAO.listAll(vo);
 	}
 
 	@Override
@@ -41,5 +41,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int modify(BoardVO vo) throws Exception {
 		return boardDAO.modify(vo);
+	}
+	
+	@Override
+	public int delete(BoardVO vo) throws Exception {
+		return boardDAO.delete(vo);
 	}
 }

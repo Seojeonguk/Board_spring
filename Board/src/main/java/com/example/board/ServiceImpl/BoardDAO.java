@@ -13,8 +13,8 @@ public class BoardDAO {
 	@Inject
 	private SqlSessionTemplate SqlSession;
 	
-	public List<BoardVO> listAll() throws Exception {
-		return SqlSession.selectList("board.listAll");
+	public List<BoardVO> listAll(BoardVO vo) throws Exception {
+		return SqlSession.selectList("board.listAll",vo);
 	}
 	
 	public int insert(BoardVO vo) throws Exception {
@@ -31,5 +31,9 @@ public class BoardDAO {
 	
 	public int modify(BoardVO vo) throws Exception {
 		return SqlSession.update("board.update",vo);
+	}
+	
+	public int delete(BoardVO vo) throws Exception {
+		return SqlSession.delete("board.delete",vo);
 	}
 }

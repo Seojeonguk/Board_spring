@@ -1,5 +1,7 @@
 package com.example.board.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,8 +31,11 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/board/list.do")
-	public String list(Model model) throws Exception {
-		List<BoardVO> list = boardService.listAll();
+	public String list(@ModelAttribute("BoardVO")BoardVO vo,Model model) throws Exception {
+		vo.setPerpagenum(10);
+		vo.setStartpage((vo.getPage()-1)*vo.getPerpagenum());
+		List<BoardVO> list = boardService.listAll(vo);
+		
 		model.addAttribute("BoardList",list);
 		return "board/list";
 	}
@@ -64,6 +69,12 @@ public class BoardController {
 	@RequestMapping(value="/board/modifyAction.do", method=RequestMethod.POST)
 	public String modifyAction(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
 		boardService.modify(vo);
+		return "redirect:/board/list.do";
+	}
+	
+	@RequestMapping(value="/board/delete.do",method=RequestMethod.POST)
+	public String delete(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
+		boardService.delete(vo);
 		return "redirect:/board/list.do";
 	}
 }

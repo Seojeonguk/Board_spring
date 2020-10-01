@@ -1,12 +1,16 @@
 package com.example.board.Service;
 
-public class BoardVO {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class BoardVO extends PageVO {
 	private int board_number;
 	private String code="";
 	private String title="";
 	private String content="";
 	private String Writer="";
-	private String write_date="";
+	private String write_date;
 	private String search_key="";
 	private String board_use="";
 	private int view_cnt=0;
@@ -43,6 +47,7 @@ public class BoardVO {
 	public String getWrite_date() {
 		return write_date;
 	}
+	
 	public void setWrite_date(String write_date) {
 		this.write_date = write_date;
 	}

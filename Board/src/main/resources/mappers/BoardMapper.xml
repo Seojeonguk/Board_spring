@@ -4,10 +4,11 @@
 <mapper namespace="board">
 	
 
-	<select id="listAll" resultType="BoardVO">
+	<select id="listAll" parameterType="BoardVO" resultType="BoardVO">
 		SELECT * FROM BOARD 
 		WHERE BOARD_USE = 'Y'
 		ORDER BY BOARD_NUMBER DESC
+		LIMIT #{perpagenum} OFFSET #{startpage}
 	</select>
 	
 	<insert id="insert" parameterType="BoardVO" >
@@ -25,7 +26,7 @@
 			#{title},
 			#{content},
 			#{writer},
-			#{write_date},
+			now(),
 			#{search_key},
 			'Y',
 			0
@@ -47,4 +48,10 @@
 		TITLE = #{title}, CONTENT = #{content}
 		WHERE BOARD_NUMBER = #{board_number}
 	</update>
+	
+	<delete id="delete" parameterType="BoardVO">
+		DELETE
+		FROM BOARD
+		WHERE BOARD_NUMBER = #{board_number} 
+	</delete>
 </mapper>

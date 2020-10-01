@@ -16,7 +16,7 @@
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width:700px">
 		<form name="form" action ="<c:out value="/board/modifyAction.do"/>" method=POST >
 			<div class="form-group">
 				<label>제목</label>

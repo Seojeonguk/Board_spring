@@ -1,6 +1,8 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,37 +12,49 @@
 <title></title>
 
 <script>
-	function modify_btn() {
+	function btn(cnt) {
 		var form = document.form;
+		if(cnt==1) {
+			form.action = '<c:out value="/board/modify.do"/>';
+		}else {
+			form.action = '<c:out value="/board/delete.do"/>';
+		}
 		form.submit();
 	}
 </script>
 </head>
 <body>
-	<div class="container">
-		<div>
-			<label>게시판 제목</label>
-			<label><c:out value="${resultVO.title }"></c:out></label>
-		</div>
+	<div class="container" style="max-width:700px">
+		<table class="table">
+			<tr>
+				<td>게시판 제목</td>
+				<td><c:out value="${resultVO.title}"/></td>
+			</tr>
+			
+			<tr>
+				<td>작성자</td>
+				<td><c:out value="${resultVO.writer}"/></td>
+			</tr>
+			
+			<tr>
+				<td>작성 시간</td>
+				<td>
+					<fmt:parseDate value="${resultVO.write_date }" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
+					<fmt:formatDate value="${date }" pattern="yyyy.MM.dd HH:mm:ss" var="write_date"/>
+					<c:out value="${write_date }"/>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>내용</td>
+				<td><c:out value="${resultVO.content}"/></td>
+			</tr>
+		</table>
 		
-		<div>
-			<label>작성자</label>
-			<label><c:out value="${resultVO.writer }"></c:out></label>
-		</div>
-		
-		<div>
-			<label>작성 시간</label>
-			<label><c:out value="${resultVO.write_date }"></c:out></label>
-		</div>
-		
-		<div>
-			<label>게시글 내용</label>
-			<label><c:out value="${resultVO.content }"></c:out></label>
-		</div>
-		
-		<div>
+		<div class="text-center">
 			<a href="/board/list.do" class="btn btn-default" >목록</a>
-			<a href="#" onclick="modify_btn();" class="btn btn-default">수정</a>
+			<a href="#" onclick="btn(1);" class="btn btn-default">수정</a>
+			<a href="#" onclick="btn(2); return 0" class="btn btn-default">삭제</a>
 		</div>
 		
 		<form name="form" action="/board/modify.do" method="post">

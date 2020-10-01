@@ -12,7 +12,7 @@
 <title></title>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width:700px">
 		<table class="table table-bordered">
 			<tr>
 				<td>번호</td>
@@ -30,11 +30,18 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<div class="text-center">
-			<a href="/board/list.do" class="btn btn-default">홈</a>
+		<div class="text-right">
+			<a href="/board/list.do?page=2" class="btn btn-default">홈</a>
 			<a href="/board/write.do" class="btn btn-default">글쓰기</a>
 		</div>
 	</div>
-
+	<div class="text-center">
+		<ul class="pagination">
+			<li><a href="#">&laquo;</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">&raquo;</a></li>
+		</ul>
+	</div>
 </body>
 </html>

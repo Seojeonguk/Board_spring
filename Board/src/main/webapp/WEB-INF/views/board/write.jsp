@@ -13,17 +13,12 @@
 <script>
 	function form_submit() {
 		var form = document.form;
-		<%
-			SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
-			String write_date = format1.format(new Date());
-		%>
-		form.write_date.value="<%=write_date%>";
 		form.submit();
 	}
 </script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="max-width:700px">
 		<form name="form" action ="<c:out value="/board/writeAction.do"/>" method=POST >
 			<div class="form-group">
 				<label>제목</label>
@@ -42,11 +37,6 @@
 			<div class="form-group">
 				<label>작성자</label>
 				<input type="text" name="writer" class="form-control" id="writer" placeholder="작성자를 입력해주세요">
-			</div>
-			
-			<!-- hidden div 모음  -->
-			<div class="form-group">
-				<input type="hidden" name="write_date" class="form-control" id="write_date" readonly/>
 			</div>
 			
 			<div class="text-center">
