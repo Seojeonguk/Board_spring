@@ -9,6 +9,6 @@
 </head>
 <body>
 	Index Page 입니다
-	<jsp:forward page="/board/list.do?page=1"/>
+	<jsp:forward page="/user/login.do"/>
 </body>
 </html>

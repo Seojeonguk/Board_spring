@@ -26,7 +26,10 @@
 	<beans:bean id="boardDAO" class="com.example.board.ServiceImpl.BoardDAO"/>
 	<beans:bean id="boardService" class="com.example.board.ServiceImpl.BoardServiceImpl"/>
 	
-	<context:component-scan base-package="com.example.board.web" />
+	<beans:bean id="userDAO" class="com.example.user.ServiceImpl.UserDAO"/>
+	<beans:bean id="userService" class="com.example.user.ServiceImpl.UserServiceImpl"/>
+	
+	<context:component-scan base-package="com.example.*" />
 	
 	
 	

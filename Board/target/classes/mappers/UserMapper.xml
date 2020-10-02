@@ -2,8 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatisorg/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="userDAO">
-	<select id="select" resultType="com.example.board.Service.BoardVO">
-		
+	<select id="user_select_vo" parameterType="UserVO" resultType="UserVO">
+		SELECT *
+		FROM USER
+		WHERE ID=#{id}
 	</select>
+	
+	<insert id="user_insert" parameterType="UserVO">
+		INSERT INTO USER (
+			ID,
+			PASSWORD,
+			GENDER,
+			NAME,
+			AGE,
+			EMAIL,
+			PHONE_NUM,
+			BIRTH,
+			AD_CHK,
+			USER_USE,
+			LEVEL
+		) values(
+			#{id},
+			#{password},
+			#{gender},
+			#{name},
+			#{age},
+			#{email},
+			#{phone_num},
+			#{birth},
+			#{ad_chk},
+			'Y',
+			#{level}
+		)
+	</insert>
 
 </mapper>
