@@ -2,10 +2,6 @@ package com.example.board.ServiceImpl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +42,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int delete(BoardVO vo) throws Exception {
 		return boardDAO.delete(vo);
+	}
+	
+	@Override
+	public int list_count(BoardVO vo) throws Exception {
+		return boardDAO.list_count(vo);
 	}
 }

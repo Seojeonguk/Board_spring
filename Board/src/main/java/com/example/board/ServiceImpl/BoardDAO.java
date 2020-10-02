@@ -2,7 +2,6 @@ package com.example.board.ServiceImpl;
 
 import java.util.List;
 import javax.inject.Inject;
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -35,5 +34,9 @@ public class BoardDAO {
 	
 	public int delete(BoardVO vo) throws Exception {
 		return SqlSession.delete("board.delete",vo);
+	}
+	
+	public int list_count(BoardVO vo) throws Exception {
+		return SqlSession.selectOne("board.list_count",vo);
 	}
 }

@@ -1,9 +1,5 @@
 package com.example.board.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class BoardVO extends PageVO {
 	private int board_number;
 	private String code="";

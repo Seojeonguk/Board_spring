@@ -54,4 +54,9 @@
 		FROM BOARD
 		WHERE BOARD_NUMBER = #{board_number} 
 	</delete>
+	
+	<select id="list_count" resultType="INT">
+		SELECT COUNT(*) FROM BOARD
+		WHERE BOARD_USE='Y'
+	</select>
 </mapper>

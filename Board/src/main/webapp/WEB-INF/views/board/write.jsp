@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width", initial-scale="1.0">
+<meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <title></title>
 <script>
@@ -40,7 +40,7 @@
 			</div>
 			
 			<div class="text-center">
-				<a href="/board/list.do" class="btn btn-default">취소</a>
+				<a href="/board/list.do?page=1" class="btn btn-default">취소</a>
 				<a href="#" onclick="form_submit(); return 0" class="btn btn-default">등록</a>
 			</div>
 		</form>

@@ -1,13 +1,26 @@
 package com.example.board.Service;
 
 public class PageVO {
-	private int totalcount;
-	private int startpage;
-	private int endpage;
-	private int displaypage=10;
-	private int page;
-	private int perpagenum;
+	private int totalcount; // 전체 페이지
+	private int startpage; // 시작 페이지
+	private int endpage; // 끝 페이지
+	private int page; //현재 페이지
+	private int perpagenum=10; //페이지 당 출력 리스트 개수
+	private int pagenum=10; // 페이징 개수
+	private int perpagetotalcount; // 한 페이지당 개수
 	
+	public int getPagenum() {
+		return pagenum;
+	}
+	public void setPagenum(int pagenum) {
+		this.pagenum = pagenum;
+	}
+	public int getPerpagetotalcount() {
+		return perpagetotalcount;
+	}
+	public void setPerpagetotalcount(int perpagetotalcount) {
+		this.perpagetotalcount = perpagetotalcount;
+	}
 	public int getTotalcount() {
 		return totalcount;
 	}
@@ -26,12 +39,6 @@ public class PageVO {
 	public void setEndpage(int endpage) {
 		this.endpage = endpage;
 	}
-	public int getDisplaypage() {
-		return displaypage;
-	}
-	public void setDisplaypage(int displaypage) {
-		this.displaypage = displaypage;
-	}
 	public int getPage() {
 		return page;
 	}
@@ -43,5 +50,11 @@ public class PageVO {
 	}
 	public void setPerpagenum(int perpagenum) {
 		this.perpagenum = perpagenum;
+	}
+	
+	public void setCalPage(int perpagenum,int totalcount) {
+		this.endpage = (int)Math.ceil((double)totalcount/(double)perpagenum);
+		int temp = this.perpagenum * this.pagenum;
+		this.perpagetotalcount = (int)Math.ceil((double)totalcount/(double)temp);
 	}
 }
