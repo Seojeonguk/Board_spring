@@ -47,6 +47,8 @@
 			</c:forEach>
 		</table>
 		<div class="text-right">
+			<a href="/user/delete.do" class="btn btn-default">회원탈퇴</a>
+			<a href="/user/logout.do" class="btn btn-default">로그아웃</a>
 			<a href="/board/write.do" class="btn btn-default">글쓰기</a>
 		</div>
 	</div>

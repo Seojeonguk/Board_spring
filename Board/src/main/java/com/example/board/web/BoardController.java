@@ -2,6 +2,7 @@ package com.example.board.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping(value="/board/list.do")
-	public String list(@ModelAttribute("BoardVO")BoardVO vo,Model model) throws Exception {
+	public String list(@ModelAttribute("BoardVO")BoardVO vo,Model model,HttpSession session) throws Exception {
 		vo.setStartpage((vo.getPage()-1)*vo.getPerpagenum());
 		vo.setTotalcount(boardService.list_count(vo));
 		vo.setCalPage(vo.getPerpagenum(),vo.getTotalcount());
