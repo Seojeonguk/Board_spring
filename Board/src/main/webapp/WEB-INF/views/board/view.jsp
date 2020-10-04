@@ -22,6 +22,7 @@
 		form.submit();
 	}
 </script>
+<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 </head>
 <body>
 	<div class="container" style="max-width:700px">

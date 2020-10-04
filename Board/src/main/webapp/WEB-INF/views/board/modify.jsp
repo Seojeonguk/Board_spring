@@ -15,6 +15,7 @@
 	}
 </script>
 </head>
+<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 <body>
 	<div class="container" style="max-width:700px">
 		<form name="form" action ="<c:out value="/board/modifyAction.do"/>" method=POST >

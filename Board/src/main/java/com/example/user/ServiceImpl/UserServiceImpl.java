@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
 	public int user_delete(String id) throws Exception {
 		return userDAO.user_delete(id);
 	}
+	
+	@Override
+	public int user_update(UserVO vo) throws Exception {
+		return userDAO.user_update(vo);
+	}
 }

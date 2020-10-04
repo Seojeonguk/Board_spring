@@ -42,5 +42,19 @@
 		USER
 		WHERE ID=#{id}
 	</delete>
+	
+	<update id="user_update" parameterType="UserVO">
+		UPDATE USER SET
+		PASSWORD = #{password},
+		GENDER = #{gender},
+		NAME = #{name},
+		AGE = #{age},
+		EMAIL = #{email},
+		PHONE_NUM = #{phone_num},
+		BIRTH = #{birth},
+		AD_CHK = #{ad_chk},
+		LEVEL = #{level}
+		WHERE ID = #{id}
+	</update>
 
 </mapper>

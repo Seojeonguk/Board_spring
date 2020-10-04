@@ -23,4 +23,8 @@ public class UserDAO {
 	public int user_delete(String id) throws Exception {
 		return SqlSession.insert("user_delete",id);
 	}
+	
+	public int user_update(UserVO vo) throws Exception {
+		return SqlSession.update("user_update",vo);
+	}
 }
