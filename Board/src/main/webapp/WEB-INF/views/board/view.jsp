@@ -15,9 +15,9 @@
 	function btn(cnt) {
 		var form = document.form;
 		if(cnt==1) {
-			form.action = '<c:out value="/board/modify.do"/>';
+			form.action = '<c:out value="/board/main_modify.do"/>';
 		}else {
-			form.action = '<c:out value="/board/delete.do"/>';
+			form.action = '<c:out value="/board/main_delete.do"/>';
 		}
 		form.submit();
 	}
@@ -53,13 +53,14 @@
 		</table>
 		
 		<div class="text-center">
-			<a href="/board/list.do?page=1" class="btn btn-default" >목록</a>
+			<a href="/board/main_list.do?page=1&category=001" class="btn btn-default" >목록</a>
 			<a href="#" onclick="btn(1);" class="btn btn-default">수정</a>
 			<a href="#" onclick="btn(2); return 0" class="btn btn-default">삭제</a>
 		</div>
 		
-		<form name="form" action="/board/modify.do" method="post">
+		<form name="form" action="/board/main_modify.do" method="post">
 			<input type="hidden" id="board_number" name="board_number" value="${resultVO.board_number }"/>
+			<input type="hidden" id="category" name="category" value="${resultVO.category }"/>
 			<input type="hidden" id="title" name="title" value="${resultVO.title }"/>
 			<input type="hidden" id="writer" name="writer" value="${resultVO.writer }"/>
 			<input type="hidden" id="write_date" name="write_date" value="${resultVO.write_date }"/>

@@ -7,9 +7,6 @@
 <meta content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <title></title>
 
 <c:set var="BoardVO.totalcount" value="${BoardVO.totalcount }" />
@@ -18,8 +15,7 @@
 <c:set var="BoardVO.page" value="${BoardVO.page }" />
 <c:set var="BoardVO.perpagenum" value="${BoardVO.perpagenum }" />
 <c:set var="BoardVO.pagenum" value="${BoardVO.pagenum }" />
-<c:set var="BoardVO.perpagetotalcount"
-	value="${BoardVO.perpagetotalcount }" />
+<c:set var="BoardVO.perpagetotalcount" value="${BoardVO.perpagetotalcount }" />
 <%
 	int p = (int)pageContext.getAttribute("BoardVO.page");
 	int pn = (int)pageContext.getAttribute("BoardVO.pagenum");
@@ -46,37 +42,37 @@
 				<tr>
 					<td>${row.board_number }</td>
 					<td>
-						<a href="${path}/board/view.do?board_number=${row.board_number}">${row.title}</a></td>
+						<a href="${path}/board/main_view.do?board_number=${row.board_number}">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="text-right">
-			<a href="/board/write.do" class="btn btn-default">글쓰기</a>
+			<a href="/board/main_write.do?category=${BoardVO.category }" class="btn btn-default">글쓰기</a>
 		</div>
 	</div>
 	<div class="text-center">
 		<ul class="pagination">
 			<c:if test="${BoardVO.page ne 1 }">
-				<li><a href="/board/list.do?page=1">&laquo;</a></li>
+				<li><a href="/board/main_list.do?page=1&category=${BoardVO.category }">&laquo;</a></li>
 			</c:if>
 			<c:if test="${st ne 1 }">
-				<li><a href="/board/list.do?page=<%=st-pn%>">&lt;</a></li>
+				<li><a href="/board/main_list.do?page=<%=st-pn%>&category=${BoardVO.category}">&lt;</a></li>
 			</c:if>
 			<%for(int i=st; i<= ep && i<st+pn;i++) { %>
-			<li><a href="/board/list.do?page=<%=i%>"><%=i %></a></li>
+			<li><a href="/board/main_list.do?page=<%=i%>&category=${BoardVO.category}"><%=i %></a></li>
 			<%if(i==ep) {
 					last_page_chk = true;
 					pageContext.setAttribute("last_page_chk",last_page_chk);} 
 				%>
 			<%} %>
-			<c:if test="${last_page_chk ne true }">
-				<li><a href="/board/list.do?page=<%=st+pn%>">&gt;</a></li>
+			<c:if test="${last_page_chk ne true and BoardVO.endpage ne 0 }">
+				<li><a href="/board/main_list.do?page=<%=st+pn%>&category=${BoardVO.category}">&gt;</a></li>
 			</c:if>
-			<c:if test="${BoardVO.page ne BoardVO.endpage }">
+			<c:if test="${BoardVO.page ne BoardVO.endpage and BoardVO.endpage ne 0 }">
 				<li>
-					<a href="/board/list.do?page=<c:out value="${BoardVO.endpage }"/>">&raquo;</a></li>
+					<a href="/board/main_list.do?page=<c:out value="${BoardVO.endpage }"/>&category=${BoardVO.category}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>

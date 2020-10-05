@@ -23,29 +23,28 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	@RequestMapping(value="/board/list.do")
+	@RequestMapping(value="/board/main_list.do")
 	public String list(@ModelAttribute("BoardVO")BoardVO vo,Model model,HttpSession session) throws Exception {
 		vo.setStartpage((vo.getPage()-1)*vo.getPerpagenum());
 		vo.setTotalcount(boardService.list_count(vo));
 		vo.setCalPage(vo.getPerpagenum(),vo.getTotalcount());
 		List<BoardVO> list = boardService.listAll(vo);
-		
 		model.addAttribute("BoardList",list);
 		return "board/list";
 	}
 	
-	@RequestMapping(value="/board/write.do")
-	public String Write() throws Exception {
+	@RequestMapping(value="/board/main_write.do")
+	public String Write(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
 		return "board/write";
 	}
 	
-	@RequestMapping(value="/board/writeAction.do",method=RequestMethod.POST)
+	@RequestMapping(value="/board/main_writeAction.do",method=RequestMethod.POST)
 	public String WriteAction(@ModelAttribute("BoardVO") BoardVO vo) throws Exception {
 		boardService.insert(vo);
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category=" + vo.getCategory();
 	}
 	
-	@RequestMapping(value="/board/view.do")
+	@RequestMapping(value="/board/main_view.do")
 	public String view(@ModelAttribute("BoardVO") BoardVO vo,Model model) throws Exception {
 		vo = boardService.select_vo(vo);
 		boardService.update_viewcnt(vo);
@@ -53,22 +52,22 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	@RequestMapping(value="/board/modify.do",method=RequestMethod.POST)
+	@RequestMapping(value="/board/main_modify.do",method=RequestMethod.POST)
 	public String modify(@ModelAttribute("BoardVO") BoardVO vo,Model model) throws Exception {
 		
 		
 		return "board/modify";
 	}
 	
-	@RequestMapping(value="/board/modifyAction.do", method=RequestMethod.POST)
+	@RequestMapping(value="/board/main_modifyAction.do", method=RequestMethod.POST)
 	public String modifyAction(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
 		boardService.modify(vo);
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category="+vo.getCategory();
 	}
 	
-	@RequestMapping(value="/board/delete.do",method=RequestMethod.POST)
+	@RequestMapping(value="/board/main_delete.do",method=RequestMethod.POST)
 	public String delete(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
 		boardService.delete(vo);
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category=001";
 	}
 }

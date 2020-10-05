@@ -18,7 +18,7 @@
 <jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 <body>
 	<div class="container" style="max-width:700px">
-		<form name="form" action ="<c:out value="/board/modifyAction.do"/>" method=POST >
+		<form name="form" action ="<c:out value="/board/main_modifyAction.do"/>" method=POST >
 			<div class="form-group">
 				<label>제목</label>
 				<input type="text" name="title" class="form-control" id="title" value="<c:out value="${BoardVO.title }"/>">
@@ -40,10 +40,10 @@
 			<div class="form-group">
 				<input type="hidden" name="board_number" id="board_nubmer" value="<c:out value="${BoardVO.board_number }"/>" />
 				<input type="hidden" name="write_date" id="write_date" value="<c:out value="${BoardVO.write_date }"/> "/>
+				<input type="hidden" name="category" id="category" value="<c:out value="${BoardVO.category }"/>"/>
 			</div>
-			
 			<div class="text-center">
-				<a href="/board/list.do?page=1" class="btn btn-default">취소</a>
+				<a href="/board/main_list.do?page=1&category=<c:out value="${BoardVO.category }"/>" class="btn btn-default">취소</a>
 				<a href="#" onclick="form_submit(); return 0" class="btn btn-default">수정</a>
 			</div>
 		</form>

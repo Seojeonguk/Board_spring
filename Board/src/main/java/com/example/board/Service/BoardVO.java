@@ -2,7 +2,7 @@ package com.example.board.Service;
 
 public class BoardVO extends PageVO {
 	private int board_number;
-	private String code="";
+	private String category="";
 	private String title="";
 	private String content="";
 	private String Writer="";
@@ -16,11 +16,11 @@ public class BoardVO extends PageVO {
 	public void setBoard_number(int board_number) {
 		this.board_number = board_number;
 	}
-	public String getCode() {
-		return code;
+	public String getCategory() {
+		return category;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getTitle() {
 		return title;

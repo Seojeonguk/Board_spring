@@ -9,6 +9,6 @@
 </head>
 <body>
 	Index Page 입니다
-	<jsp:forward page="/user/login.do"/>
+	<jsp:forward page="/board/main_list.do?page=1&category=001"/>
 </body>
 </html>

@@ -25,7 +25,7 @@ public class UserController {
 	@RequestMapping(value="/user/login.do")
 	public String login(HttpSession session,HttpServletRequest request) {
 		if(session != null  && session.getAttribute("id") != null) {
-			return "redirect:/board/list.do?page=1";
+			return "redirect:/board/main_list.do?page=1&category=001";
 		}
 		return "user/login";
 	}
@@ -44,7 +44,7 @@ public class UserController {
 		session.setAttribute("id", select_vo.getId());
 		session.setAttribute("name", select_vo.getName());
 		
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category=001";
 	}
 	
 	@RequestMapping(value="/user/reg.do")
@@ -61,13 +61,13 @@ public class UserController {
 		session =request.getSession(true);
 		session.setAttribute("id", vo.getId());
 		session.setAttribute("name", vo.getName());
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category=001";
 	}
 	
 	@RequestMapping(value="/user/logout.do")
 	public String logout(HttpServletRequest request, HttpSession session) throws Exception {
 		session.invalidate();
-		return "redirect:/user/login.do";
+		return "redirect:/board/main_list.do?page=1&category=001";
 	}
 	
 	@RequestMapping(value="/user/delete.do")
@@ -97,6 +97,6 @@ public class UserController {
 		vo.setAge(now-Integer.parseInt(vo.getBirth_year())+1);
 		session.setAttribute("name", vo.getName());
 		userService.user_update(vo);
-		return "redirect:/board/list.do?page=1";
+		return "redirect:/board/main_list.do?page=1&category=001";
 	}
 }

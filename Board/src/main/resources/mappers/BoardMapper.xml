@@ -7,13 +7,14 @@
 	<select id="listAll" parameterType="BoardVO" resultType="BoardVO">
 		SELECT * FROM BOARD 
 		WHERE BOARD_USE = 'Y'
+		AND CATEGORY=#{category}
 		ORDER BY BOARD_NUMBER DESC
 		LIMIT #{perpagenum} OFFSET #{startpage}
 	</select>
 	
 	<insert id="insert" parameterType="BoardVO" >
 		INSERT INTO BOARD (
-			CODE,
+			CATEGORY,
 			TITLE,
 			CONTENT,
 			WRITER,
@@ -22,7 +23,7 @@
 			BOARD_USE,
 			VIEW_CNT
 		) VALUES(
-			#{code},
+			#{category},
 			#{title},
 			#{content},
 			#{writer},
@@ -58,5 +59,45 @@
 	<select id="list_count" resultType="INT">
 		SELECT COUNT(*) FROM BOARD
 		WHERE BOARD_USE='Y'
+		AND CATEGORY=#{category}
 	</select>
+	
+	
+	<!-- 자유게시판 -->
+	<select id="free_listAll" parameterType="BoardVO" resultType="BoardVO">
+		SELECT * FROM BOARD 
+		WHERE BOARD_USE = 'Y'
+		AND CODE='TM002'
+		ORDER BY BOARD_NUMBER DESC
+		LIMIT #{perpagenum} OFFSET #{startpage}
+	</select>
+	
+	
+	<select id="free_list_count" resultType="INT">
+		SELECT COUNT(*) FROM BOARD
+		WHERE BOARD_USE='Y'
+		AND CODE='TM002'
+	</select>
+	
+	<insert id="free_insert" parameterType="BoardVO" >
+		INSERT INTO BOARD (
+			CODE,
+			TITLE,
+			CONTENT,
+			WRITER,
+			WRITE_DATE,
+			SEARCH_KEY,
+			BOARD_USE,
+			VIEW_CNT
+		) VALUES(
+			'TM002',
+			#{title},
+			#{content},
+			#{writer},
+			now(),
+			#{search_key},
+			'Y',
+			0
+		)
+	</insert>
 </mapper>
