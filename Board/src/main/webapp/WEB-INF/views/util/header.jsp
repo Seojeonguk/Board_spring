@@ -25,6 +25,9 @@
 				<a href="/board/main_list.do?page=1&category=002" class="navbar-brand">
 					<c:out value="자유게시판"></c:out>
 				</a>
+				<a href="/board/main_list.do?page=1&category=003" class="navbar-brand">
+					<c:out value="방명록"></c:out>
+				</a>
 			</div>
 
 
@@ -33,10 +36,15 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<form class="navbar-form navbar-left" role="search">
+							<div>
+								<input type="hidden" name="page" value="1"/>
+								<input type="hidden" name="category" value="<c:out value="${BoardVO.category }"/>"/>
+							</div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="search_key" placeholder="Search">
 							</div>
 							<button type="submit" class="btn btn-default">검색</button>
+							
 						</form>
 					</li>
 					<li class="dropdown">
@@ -67,5 +75,7 @@
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
+	
+	
 </body>
 </html>
