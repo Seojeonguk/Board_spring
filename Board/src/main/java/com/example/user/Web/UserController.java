@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.user.Service.UserService;
 import com.example.user.Service.UserVO;
@@ -98,5 +99,16 @@ public class UserController {
 		session.setAttribute("name", vo.getName());
 		userService.user_update(vo);
 		return "redirect:/board/main_list.do?page=1&category=001";
+	}
+	
+	@RequestMapping(value="/user/reg_id_check.do")
+	public ModelAndView reg_id_check(@ModelAttribute("UserVO")UserVO vo,ModelAndView mv) throws Exception {
+		mv.setViewName("jsonView");
+		UserVO select_vo = new UserVO();
+		select_vo = userService.user_select_vo(vo);
+		mv.addObject("success", 100);
+		if(select_vo != null) mv.addObject("dupl", 1);
+		else mv.addObject("dupl", 0);
+		return mv;
 	}
 }

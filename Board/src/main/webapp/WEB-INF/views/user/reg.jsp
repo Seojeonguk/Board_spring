@@ -78,9 +78,29 @@
 		if(!regex.test(c.value)) {
 			$("#id").effect("shake");
 			document.getElementById("id_error").style.display="block";
+			document.getElementById("id_error").innerHTML="5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
 		}
 		else {
-			document.getElementById("id_error").style.display="none";
+			
+			$.ajax({
+				url:"/user/reg_id_check.do",
+				type:"POST",
+				data:$('#form').serialize(),
+				dataType:"json",
+				success:function(success) {
+					if(success.dupl == 1) {
+						<!--span값 변경-->
+						document.getElementById("id_error").innerHTML="이미 존재하는 아이디입니다.";
+						document.getElementById("id_error").style.display="block";
+					}
+					else {
+						document.getElementById("id_error").style.display="none";
+					}
+				},
+				error:function(data) {
+					console.log(data);
+				}
+			});
 		}
 		
 	}
@@ -88,7 +108,7 @@
 </head>
 <body>
 	<div class="container" style="max-width:350px">
-		<form action="/user/regAction.do" method="POST" name="form" onsubmit="return chk();">
+		<form action="/user/regAction.do" method="POST" name="form" id="form" onsubmit="return chk();">
 			<div class="form-group">
 				<label>아이디</label>
 				<input type="text" name="id" id="id" class="form-control" pattern="^[a-z0-9][a-z0-9_\-]{4,19}$" placeholder="아이디" minlength="5" onfocusout="id_focus_out(this);"  maxlength="20" required>
