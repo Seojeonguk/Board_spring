@@ -29,6 +29,9 @@
 	<beans:bean id="userDAO" class="com.example.user.ServiceImpl.UserDAO"/>
 	<beans:bean id="userService" class="com.example.user.ServiceImpl.UserServiceImpl"/>
 	
+	<beans:bean id="commentDAO" class="com.example.board.ServiceImpl.CommentDAO"/>
+	<beans:bean id="commentService" class="com.example.board.ServiceImpl.CommentServiceImpl"/>
+	
 	<beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/>
 	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"></beans:property>

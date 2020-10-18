@@ -15,12 +15,15 @@
  %>
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="width:100%">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
+				<a href="/board/main.do" class="navbar-brand">
+					<c:out value="Page"></c:out>
+				</a>
 				<a href="/board/main_list.do?page=1&category=001" class="navbar-brand">
-					<c:out value="BoardHomePage"></c:out>
+					<c:out value="공지사항"></c:out>
 				</a>
 				<a href="/board/main_list.do?page=1&category=002" class="navbar-brand">
 					<c:out value="자유게시판"></c:out>

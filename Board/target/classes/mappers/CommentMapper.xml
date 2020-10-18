@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatisorg/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+	<select id="listAll" parameterType="commentVO" resultType="commentVO">
+		SELECT 
+			COMMENT_NUMBER,
+			BOARD_NUMBER,
+			COMMENT_WRITER,
+			COMMENT_DATE,
+			COMMENT_CONTENT
+		FROM 
+			COMMENT
+		WHERE
+			BOARD_NUMBER = #{board_number}
+	</select>
+	
+	<insert id="insert" parameterType="commentVO">
+		INSERT INTO COMMENT(
+			BOARD_NUMBER,
+			COMMENT_WRITER,
+			COMMENT_DATE,
+			COMMENT_CONTENT
+		)
+		VALUES (
+			#{board_number},
+			#{comment_writer},
+			sysdate(),
+			#{comment_content}
+		)
+	</insert>
+</mapper>

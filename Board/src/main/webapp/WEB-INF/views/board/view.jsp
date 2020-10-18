@@ -13,7 +13,7 @@
 
 <script>
 	function btn(cnt) {
-		var form = document.form;
+		var form = document.hidden_form;
 		if(cnt==1) {
 			form.action = '<c:out value="/board/main_modify.do"/>';
 		}else {
@@ -21,10 +21,25 @@
 		}
 		form.submit();
 	}
+
+	function comment_insert() {
+		$.ajax({
+			url:"/board/comment_reg.do",
+			type:"POST",
+			data:$('#comment_form').serialize(),
+			dataType:"json",
+			success:function(success) {
+				location.reload();
+			},
+			error:function(data) {
+				console.log(data);
+			}
+		});
+	}
 </script>
-<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:700px">
 		<table class="table">
 			<tr>
@@ -58,7 +73,35 @@
 			<a href="#" onclick="btn(2); return 0" class="btn btn-default">삭제</a>
 		</div>
 		
-		<form name="form" action="/board/main_modify.do" method="post">
+		<div>
+			<div>
+				<c:forEach items="${comment_list}" var="list" varStatus="status">
+					<div>
+						<span><c:out value="${list.comment_writer }"/></span>
+					</div>
+					<div>
+						<span><c:out value="${list.comment_content }"/></span>
+					</div>
+					<div>
+						<span><c:out value="${list.comment_date }"/></span>
+					</div>
+				</c:forEach>
+			</div>
+			<form name="comment_form" id="comment_form">
+				<div class="form-group">
+					<label><c:out value="${id }"></c:out></label>
+					<textarea class="form-control" id="comment_content" name="comment_content" cols="20"></textarea>
+				</div>
+				<div class="text-right">
+					<input type="hidden" name="comment_writer" value="${id }"/>
+					<input type="hidden" name="board_number" value="${resultVO.board_number }"/>
+					<input type="submit" onclick="javascipt:comment_insert(); return false;" class="btn btn-default" value="등록">
+				</div>
+				
+			</form>
+		</div>
+		
+		<form name="hidden_form" action="/board/main_modify.do" method="post">
 			<input type="hidden" id="board_number" name="board_number" value="${resultVO.board_number }"/>
 			<input type="hidden" id="category" name="category" value="${resultVO.category }"/>
 			<input type="hidden" id="title" name="title" value="${resultVO.title }"/>

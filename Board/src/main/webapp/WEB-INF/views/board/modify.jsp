@@ -15,8 +15,8 @@
 	}
 </script>
 </head>
-<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 <body>
+	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:700px">
 		<form name="form" action ="<c:out value="/board/main_modifyAction.do"/>" method=POST >
 			<div class="form-group">

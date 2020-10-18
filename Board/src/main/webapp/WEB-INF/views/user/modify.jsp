@@ -95,6 +95,7 @@
 </script>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:350px">
 		<form action="/user/modifyAction.do" method="POST" name="form" onsubmit="return chk();">
 			<div class="form-group">

@@ -56,7 +56,7 @@
 				<tr>
 					<td>${row.board_number }</td>
 					<td>
-						<a href="/board/main_view.do?board_number=${row.board_number}">${row.title}</a></td>
+						<a href="${path}/board/main_view.do?board_number=${row.board_number}">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>

@@ -16,9 +16,9 @@
 		form.submit();
 	}
 </script>
-<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 </head>
 <body>
+	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:700px">
 		<form name="form" action ="<c:out value="/board/main_writeAction.do"/>" method=POST >
 			<div class="form-group">
