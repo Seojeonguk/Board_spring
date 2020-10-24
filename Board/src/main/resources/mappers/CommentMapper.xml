@@ -29,4 +29,10 @@
 			#{comment_content}
 		)
 	</insert>
+	
+	<delete id="delete" parameterType="commentVO">
+		DELETE FROM COMMENT
+		WHERE
+			COMMENT_NUMBER = #{comment_number}
+	</delete>
 </mapper>

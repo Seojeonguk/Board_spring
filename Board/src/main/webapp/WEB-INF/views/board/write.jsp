@@ -33,7 +33,7 @@
 			
 			<div class="form-group">
 				<label>내용</label>
-				<input type="text" name="content" class="form-control" id="content" placeholder="제목을 입력해주세요">
+				<textarea rows="30" cols="20" class="form-control" name="content" placeholder="내용을 입력해주세요."></textarea>
 			</div>
 			
 			<div class="text-center">

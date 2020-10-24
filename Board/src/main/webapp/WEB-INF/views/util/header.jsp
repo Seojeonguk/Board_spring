@@ -38,7 +38,7 @@
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<form class="navbar-form navbar-left" role="search">
+						<form class="navbar-form navbar-left" role="search" action="/board/main_list.do">
 							<div>
 								<input type="hidden" name="page" value="1"/>
 								<input type="hidden" name="category" value="<c:out value="${BoardVO.category }"/>"/>

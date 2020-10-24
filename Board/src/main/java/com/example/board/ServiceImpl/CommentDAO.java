@@ -22,4 +22,8 @@ public class CommentDAO {
 	public int insert(CommentVO vo) throws Exception {
 		return SqlSession.insert("comment.insert",vo);
 	}
+	
+	public int delete(CommentVO vo) throws Exception {
+		return SqlSession.delete("comment.delete",vo);
+	}
 }

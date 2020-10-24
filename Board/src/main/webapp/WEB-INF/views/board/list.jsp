@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <title></title>
 
+<!-- 
 <c:set var="BoardVO.totalcount" value="${BoardVO.totalcount }" />
 <c:set var="BoardVO.startpage" value="${BoardVO.startpage }" />
 <c:set var="BoardVO.endpage" value="${BoardVO.endpage }" />
@@ -17,6 +18,7 @@
 <c:set var="BoardVO.pagenum" value="${BoardVO.pagenum }" />
 <c:set var="BoardVO.perpagetotalcount" value="${BoardVO.perpagetotalcount }" />
 <c:set var="BoardVO.category" value="${BoardVO.category }"/>
+ -->
 <%
 	int p = (int)pageContext.getAttribute("BoardVO.page");
 	int pn = (int)pageContext.getAttribute("BoardVO.pagenum");
@@ -25,12 +27,12 @@
 	boolean last_page_chk = false;
 	int st = ((int)Math.ceil((double)p/(double)pn)-1)*pn+1;
 	pageContext.setAttribute("st",st);
+	String session_id = (String)session.getAttribute("id");
 %>
 
 <script>
 	function session_check() {
 		<%
-		String session_id = (String)session.getAttribute("id");
 		if(session_id != null) {
 			out.print("location.href='/board/main_write.do?category=" +ctgr + "';" );
 		} else  {
@@ -56,7 +58,7 @@
 				<tr>
 					<td>${row.board_number }</td>
 					<td>
-						<a href="/board/main_view.do?board_number=${row.board_number}">${row.title}</a></td>
+						<a href="/board/main_view.do?board_number=${row.board_number}&category=${BoardVO.category }">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>

@@ -62,8 +62,10 @@ public class BoardController {
 		vo = boardService.select_vo(vo);
 		boardService.update_viewcnt(vo);
 		List<?> comment_list= commentService.listAll(co_vo);
+		int comment_list_size = comment_list.size();
 		model.addAttribute("comment_list",comment_list);
 		model.addAttribute("resultVO",vo);
+		model.addAttribute("comment_count", comment_list_size);
 		return "board/view";
 	}
 	
@@ -91,7 +93,15 @@ public class BoardController {
 	public ModelAndView comment_reg(@ModelAttribute("CommentVO")CommentVO vo) throws Exception {
 		commentService.insert(vo);
 		ModelAndView mv = new ModelAndView("jsonView");
-		mv.addObject("success", 100);
+		mv.addObject("success", true);
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/comment_delete.do")
+	public ModelAndView comment_delete(@ModelAttribute("CommentVO")CommentVO vo) throws Exception {
+		commentService.delete(vo);
+		ModelAndView mv = new ModelAndView("jsonView");
+		mv.addObject("success",true);
 		return mv;
 	}
 }
