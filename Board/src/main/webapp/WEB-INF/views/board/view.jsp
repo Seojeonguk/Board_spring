@@ -36,6 +36,11 @@
 			}
 		});
 	}
+
+	function comment_list() {
+		var comment = document.getElementById("comment_div");
+		comment.style.display="none";
+	}
 </script>
 </head>
 <body>
@@ -74,15 +79,19 @@
 		</div>
 		
 		<div>
-			<div>
+			<input type="button" class="btn btn-default" style="border-radius:0px" onclick="comment_list(); return false;" value="댓글"/>
+		</div>
+		
+		<div id="comment_div" style="background:rgb(239, 247, 235); border:30px solid rgb(239,247,235)">
+			<div >
 				<c:forEach items="${comment_list}" var="list" varStatus="status">
-					<div>
-						<span><c:out value="${list.comment_writer }"/></span>
+					<div style="border-bottom:7px">
+						<span><h3><c:out value="${list.comment_writer }"/></h3></span>
 					</div>
 					<div>
-						<span><c:out value="${list.comment_content }"/></span>
+						<span style="word-break:break-all"><c:out value="${list.comment_content }"/></span>
 					</div>
-					<div>
+					<div style="border-bottom:1px solid black; border-top:2px">
 						<span><c:out value="${list.comment_date }"/></span>
 					</div>
 				</c:forEach>
