@@ -9,16 +9,40 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <title></title>
 <script>
-	function submit() {
-		var form = document.form;
-		form.submit();
-	}
+	$(document).ready(function() {
+		$("#loginbtn").click(function(event) {
+			event.preventDefault();
+
+			$.ajax({
+				url:"<c:url value='/user/loginActionAjax.do' />",
+				type:"POST",
+				data:$('#loginform').serialize(),
+				dataType:"json",
+				success:function(response) {
+					if(response.success==0) {
+						if(response.error_code==0) {
+							alert("아이디를 찾을 수 없습니다!");
+						}
+						else if(response.error_code==1) {
+							alert("비밀번호가 틀렸습니다!");
+						}
+					}
+					else {
+						location.href="<c:url value='/'/>";
+					}
+				},
+				error:function(response) {
+					alert("에러");
+				}
+			});
+		});
+	});
+	
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:400px">
-		<form action="<c:out value="/user/loginAction.do"/>" method="post" name="form">
+		<form id="loginform" action="" method="post" name="form">
 			<div class="form-group">
 				<label>ID</label>
 				<input type="text" name="id" class="form-control" id="id" placeholder="아이디를 입력해주세요"/>
@@ -30,8 +54,8 @@
 			</div>
 			
 			<div class="text-center">
-				<a href="#" class="btn btn-default" onclick="submit(); return 0;">로그인</a>
-				<a href="/user/reg.do" class="btn btn-default">회원가입</a>
+				<a href="#" id="loginbtn" class="btn btn-default">로그인</a>
+				<a href="/?pid=user&cmd=reg" class="btn btn-default">회원가입</a>
 			</div>
 		</form>
 	</div>

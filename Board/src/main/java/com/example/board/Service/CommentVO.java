@@ -1,21 +1,21 @@
 package com.example.board.Service;
 
 public class CommentVO {
-	private int comment_number;
-	private int board_number;
+	private Integer comment_number;
+	private Integer board_number;
 	private String comment_writer="";
 	private String comment_date="";
 	private String comment_content="";
-	public int getComment_number() {
+	public Integer getComment_number() {
 		return comment_number;
 	}
-	public void setComment_number(int comment_number) {
+	public void setComment_number(Integer comment_number) {
 		this.comment_number = comment_number;
 	}
-	public int getBoard_number() {
+	public Integer getBoard_number() {
 		return board_number;
 	}
-	public void setBoard_number(int board_number) {
+	public void setBoard_number(Integer board_number) {
 		this.board_number = board_number;
 	}
 	public String getComment_writer() {
@@ -36,6 +36,4 @@ public class CommentVO {
 	public void setComment_content(String comment_content) {
 		this.comment_content = comment_content;
 	}
-	
-	
 }

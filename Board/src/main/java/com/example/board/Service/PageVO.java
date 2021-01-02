@@ -1,57 +1,58 @@
 package com.example.board.Service;
 
 public class PageVO {
-	private int totalcount; // 전체 페이지
-	private int startpage; // 시작 페이지
-	private int endpage; // 끝 페이지
-	private int page; //현재 페이지
-	private int perpagenum=10; //페이지 당 출력 리스트 개수
-	private int pagenum=10; // 페이징 개수
-	private int perpagetotalcount; // 한 페이지당 개수
+	private Integer totalcount; // 전체 페이지
+	private Integer startpage; // 시작 페이지
+	private Integer endpage; // 끝 페이지
+	private Integer page; //현재 페이지
+	private Integer perpagenum=10; //페이지 당 출력 리스트 개수
+	private Integer pagenum=10; // 페이징 개수
+	private Integer perpagetotalcount; // 한 페이지당 개수
 	
-	public int getPagenum() {
-		return pagenum;
-	}
-	public void setPagenum(int pagenum) {
-		this.pagenum = pagenum;
-	}
-	public int getPerpagetotalcount() {
-		return perpagetotalcount;
-	}
-	public void setPerpagetotalcount(int perpagetotalcount) {
-		this.perpagetotalcount = perpagetotalcount;
-	}
-	public int getTotalcount() {
+	public Integer getTotalcount() {
 		return totalcount;
 	}
-	public void setTotalcount(int totalcount) {
+	public void setTotalcount(Integer totalcount) {
 		this.totalcount = totalcount;
 	}
-	public int getStartpage() {
+	public Integer getStartpage() {
 		return startpage;
 	}
-	public void setStartpage(int startpage) {
+	public void setStartpage(Integer startpage) {
 		this.startpage = startpage;
 	}
-	public int getEndpage() {
+	public Integer getEndpage() {
 		return endpage;
 	}
-	public void setEndpage(int endpage) {
+	public void setEndpage(Integer endpage) {
 		this.endpage = endpage;
 	}
-	public int getPage() {
+	public Integer getPage() {
 		return page;
 	}
-	public void setPage(int page) {
+	public void setPage(Integer page) {
 		this.page = page;
 	}
-	public int getPerpagenum() {
+	public Integer getPerpagenum() {
 		return perpagenum;
 	}
-	public void setPerpagenum(int perpagenum) {
+	public void setPerpagenum(Integer perpagenum) {
 		this.perpagenum = perpagenum;
 	}
-	
+	public Integer getPagenum() {
+		return pagenum;
+	}
+	public void setPagenum(Integer pagenum) {
+		this.pagenum = pagenum;
+	}
+	public Integer getPerpagetotalcount() {
+		return perpagetotalcount;
+	}
+	public void setPerpagetotalcount(Integer perpagetotalcount) {
+		this.perpagetotalcount = perpagetotalcount;
+	}
+
+
 	public void setCalPage(int perpagenum,int totalcount) {
 		this.endpage = (int)Math.ceil((double)totalcount/(double)perpagenum);
 		int temp = this.perpagenum * this.pagenum;

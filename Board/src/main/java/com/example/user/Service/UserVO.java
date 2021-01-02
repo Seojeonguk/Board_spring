@@ -5,7 +5,7 @@ public class UserVO {
 	private String password="";
 	private String gender="";
 	private String name="";
-	private int age;
+	private Integer age;
 	private String email="";
 	private String phone_num="";
 	private String birth_year;
@@ -14,39 +14,7 @@ public class UserVO {
 	private String birth;
 	private String ad_chk="";
 	private String user_use="";
-	private int level;
-	
-	public String getBirth() {
-		return birth;
-	}
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
-	public String getBirth_year() {
-		return birth_year;
-	}
-
-	public void setBirth_year(String birth_year) {
-		this.birth_year = birth_year;
-	}
-
-	public String getBirth_month() {
-		return birth_month;
-	}
-
-	public void setBirth_month(String birth_month) {
-		this.birth_month = birth_month;
-	}
-
-	public String getBirth_day() {
-		return birth_day;
-	}
-
-	public void setBirth_day(String birth_day) {
-		this.birth_day = birth_day;
-	}
-	
-	
+	private Integer level;
 	public String getId() {
 		return id;
 	}
@@ -71,10 +39,10 @@ public class UserVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 	public String getEmail() {
@@ -89,6 +57,30 @@ public class UserVO {
 	public void setPhone_num(String phone_num) {
 		this.phone_num = phone_num;
 	}
+	public String getBirth_year() {
+		return birth_year;
+	}
+	public void setBirth_year(String birth_year) {
+		this.birth_year = birth_year;
+	}
+	public String getBirth_month() {
+		return birth_month;
+	}
+	public void setBirth_month(String birth_month) {
+		this.birth_month = birth_month;
+	}
+	public String getBirth_day() {
+		return birth_day;
+	}
+	public void setBirth_day(String birth_day) {
+		this.birth_day = birth_day;
+	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 	public String getAd_chk() {
 		return ad_chk;
 	}
@@ -101,11 +93,10 @@ public class UserVO {
 	public void setUser_use(String user_use) {
 		this.user_use = user_use;
 	}
-	public int getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
-	
 }

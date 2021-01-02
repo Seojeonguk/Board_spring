@@ -19,16 +19,16 @@
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a href="/board/main.do" class="navbar-brand">
+				<a href="/?pid=board&cmd=main" class="navbar-brand">
 					<c:out value="Page"></c:out>
 				</a>
-				<a href="/board/main_list.do?page=1&category=001" class="navbar-brand">
+				<a href="/?pid=board&cmd=list&page=1&category=001" class="navbar-brand">
 					<c:out value="공지사항"></c:out>
 				</a>
-				<a href="/board/main_list.do?page=1&category=002" class="navbar-brand">
+				<a href="/?pid=board&cmd=list&page=1&category=002" class="navbar-brand">
 					<c:out value="자유게시판"></c:out>
 				</a>
-				<a href="/board/main_list.do?page=1&category=003" class="navbar-brand">
+				<a href="/?pid=board&cmd=list&page=1&category=003" class="navbar-brand">
 					<c:out value="방명록"></c:out>
 				</a>
 			</div>
@@ -62,12 +62,12 @@
 							
 							<c:choose>
 								<c:when test="${not empty id  and id ne ''}">
-									<li><a href="/user/modify.do">정보수정</a></li>
+									<li><a href="/?pid=user&cmd=modify">정보수정</a></li>
 									<li class="divider"></li>
 									<li id="logout"><a href="/user/logout.do">로그아웃</a></li>
 								</c:when>
 								<c:otherwise>
-									<li id="login"><a href="/user/login.do">로그인</a></li>
+									<li id="login"><a href="/?pid=user&cmd=login">로그인</a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

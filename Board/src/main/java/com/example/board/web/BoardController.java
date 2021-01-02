@@ -29,6 +29,11 @@ public class BoardController {
 	@Autowired
 	CommentService commentService;
 	
+	@RequestMapping(value="/board/index.do")
+	public String board_index() throws Exception {
+		return "board/index";
+	}
+	
 	@RequestMapping(value="/board/main.do")
 	public String mainpage() throws Exception {
 		return "board/main";	
@@ -46,6 +51,9 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/main_write.do")
 	public String Write(@ModelAttribute("BoardVO")BoardVO vo,HttpSession session) throws Exception {
+		
+		
+		
 		return "board/write";
 	}
 	

@@ -1,7 +1,7 @@
 package com.example.board.Service;
 
 public class BoardVO extends PageVO {
-	private int board_number;
+	private Integer board_number;
 	private String category="";
 	private String title="";
 	private String content="";
@@ -9,11 +9,11 @@ public class BoardVO extends PageVO {
 	private String write_date;
 	private String search_key="";
 	private String board_use="";
-	private int view_cnt=0;
-	public int getBoard_number() {
+	private Integer view_cnt=0;
+	public Integer getBoard_number() {
 		return board_number;
 	}
-	public void setBoard_number(int board_number) {
+	public void setBoard_number(Integer board_number) {
 		this.board_number = board_number;
 	}
 	public String getCategory() {
@@ -43,7 +43,6 @@ public class BoardVO extends PageVO {
 	public String getWrite_date() {
 		return write_date;
 	}
-	
 	public void setWrite_date(String write_date) {
 		this.write_date = write_date;
 	}
@@ -59,13 +58,10 @@ public class BoardVO extends PageVO {
 	public void setBoard_use(String board_use) {
 		this.board_use = board_use;
 	}
-	public int getView_cnt() {
+	public Integer getView_cnt() {
 		return view_cnt;
 	}
-	public void setView_cnt(int view_cnt) {
+	public void setView_cnt(Integer view_cnt) {
 		this.view_cnt = view_cnt;
 	}
-	
-
-	
 }

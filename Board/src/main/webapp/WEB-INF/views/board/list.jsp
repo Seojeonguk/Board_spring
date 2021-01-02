@@ -34,7 +34,7 @@
 	function session_check() {
 		<%
 		if(session_id != null) {
-			out.print("location.href='/board/main_write.do?category=" +ctgr + "';" );
+			out.print("location.href='/?pid=board&cmd=reg&category=" +ctgr + "';" );
 		} else  {
 			out.print("alert('로그인이 필요합니다');");
 			out.print("location.href='/user/login.do';");
@@ -44,7 +44,6 @@
 </script>	
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width: 700px">
 		<table class="table table-bordered">
 			<tr>
@@ -57,8 +56,7 @@
 			<c:forEach var="row" items="${BoardList }">
 				<tr>
 					<td>${row.board_number }</td>
-					<td>
-						<a href="/board/main_view.do?board_number=${row.board_number}&category=${BoardVO.category }">${row.title}</a></td>
+					<td><a href="/?pid=board&cmd=view&board_number=${row.board_number}&category=${BoardVO.category }">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>
@@ -68,6 +66,8 @@
 			<a href="#" onclick="javascript:session_check(); return false;" class="btn btn-default">글쓰기</a>
 		</div>
 	</div>
+	
+	<!-- pagination start -->
 	<div class="text-center">
 		<ul class="pagination">
 			<c:if test="${BoardVO.page ne 1 }">
@@ -84,13 +84,14 @@
 				%>
 			<%} %>
 			<c:if test="${last_page_chk ne true and BoardVO.endpage ne 0 }">
-				<li><a href="/board/main_list.do?page=<%=st+pn%>&category=${BoardVO.category}">&gt;</a></li>
+				<li><a href="/?pid=board&cmd=list&page=<%=st+pn%>&category=${BoardVO.category}">&gt;</a></li>
 			</c:if>
 			<c:if test="${BoardVO.page ne BoardVO.endpage and BoardVO.endpage ne 0 }">
 				<li>
-					<a href="/board/main_list.do?page=<c:out value="${BoardVO.endpage }"/>&category=${BoardVO.category}">&raquo;</a></li>
+					<a href="/?pid=board&cmd=list&page=<c:out value="${BoardVO.endpage }"/>&category=${BoardVO.category}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>
+	<!-- pagination end -->
 </body>
 </html>

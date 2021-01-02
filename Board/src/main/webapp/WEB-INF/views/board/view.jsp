@@ -106,8 +106,8 @@
 			data:$('#comment_form').serialize(),
 			dataType:"json",
 			success:function(success) {
-				//location.reload();
-				location.href="/board/main_view.do?board_number=1086&cmd=reload";
+				location.reload();
+				//location.href="/board/main_view.do?board_number=1086&cmd=reload";
 			},
 			error:function(data) {
 				console.log(data);
@@ -143,7 +143,6 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="container" style="max-width:700px">
 		<table class="table">
 			<tr>
@@ -182,6 +181,7 @@
 			</div>
 		</div>
 		
+		<!-- 댓글 영역 시작 -->
 		<div id="comment_div" class="comment_div" style="display:none">
 			<div class="comment_div_div" >
 				<c:forEach items="${comment_list}" var="list" varStatus="status">
@@ -222,6 +222,7 @@
 				
 			</form>
 		</div>
+		<!-- 댓글 영역 종료 -->
 		
 		<form name="hidden_form" action="/board/main_modify.do" method="post">
 			<input type="hidden" id="board_number" name="board_number" value="${resultVO.board_number }"/>
