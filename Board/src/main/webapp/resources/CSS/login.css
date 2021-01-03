@@ -1,0 +1,84 @@
+
+.login_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+	width: 100vw;
+}
+
+.login{
+	text-align: center;
+	position: relative;
+	width:280px;
+}
+
+.login button,input {
+	width:100%;
+	border:0;
+	border-radius: 20px;
+}
+
+.login input {
+	border-bottom: 2px solid #444;
+	padding: 12px 40px 12px 20px;
+}
+
+.login button,input, .group,i,p,a{
+	font-size: 13.3333px;
+}
+
+.login .group {
+	margin-bottom:10px;
+	position: relative;
+}
+
+.login .group i{
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}
+
+.login button {
+	padding:12px;
+	background-image: linear-gradient(to right,#ff1464,purple);
+	margin-bottom:20px;
+	cursor: pointer;
+}
+
+.login button, button i{
+	color:#fff;
+}
+
+.login i{
+	margin-right: 5px;
+}
+
+.login p {
+	margin-bottom: 20px;
+}
+
+.login i.fa.fa-empire {
+	color:#ff1464;
+}
+
+.login a{
+	color:#ff1464;
+}
+
+.login i.fa.fa-empire {
+	font-size: 60px;
+	margin-bottom: 20px;
+}
+
+.login h2 {
+	margin-bottom: 20px;
+}
+
+.login input:focus, input:foucs::placeholder, input:focus+i {
+	color:#ff1464;
+}
+
+.login input:focus,button:focus {
+	outline: 0;
+}

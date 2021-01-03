@@ -16,6 +16,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> listAll(BoardVO vo) throws Exception {
+		vo.setTotalcount(boardDAO.list_count(vo));
+		vo.setCalPage(vo.getPerpagenum(),vo.getTotalcount());
 		return boardDAO.listAll(vo);
 	}
 

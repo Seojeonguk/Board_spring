@@ -40,21 +40,21 @@ public class UserController {
 	
 	@RequestMapping(value="/user/loginActionAjax.do")
 	public ModelAndView loginActionAjax(@ModelAttribute("UserVO")UserVO vo,HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("jsonView");
+		ModelAndView mv = new ModelAndView("jsonView");
+		
 		UserVO select_vo = new UserVO();
 		select_vo = userService.user_select_vo(vo);
 		
 		if(select_vo == null) {
-			mv.addObject("success",0);
+			mv.addObject("success",false);
 			mv.addObject("error_code", 0); // 아이디 찾을 수 없음
 		}
 		else if(!select_vo.getPassword().equals(vo.getPassword())) {
-			mv.addObject("success",0);
+			mv.addObject("success",false);
 			mv.addObject("error_code", 1); // 비밀번호 찾을수 없음
 		}
 		else {
-			mv.addObject("success", 1);
+			mv.addObject("success", true);
 			HttpSession session = request.getSession(true);
 			session.setAttribute("id", select_vo.getId());
 			session.setAttribute("name", select_vo.getName());
@@ -109,8 +109,7 @@ public class UserController {
 	
 	@RequestMapping(value="/user/regActionAjax.do")
 	public ModelAndView regActionAjax(@ModelAttribute("UserVO")UserVO vo,HttpSession session,HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("jsonView");
+		ModelAndView mv = new ModelAndView("jsonView");
 
 		try {
 			vo.setBirth(vo.getBirth_year()+vo.getBirth_month()+vo.getBirth_day());
@@ -126,7 +125,7 @@ public class UserController {
 			
 			mv.addObject("success", true);
 		}catch(Exception e) {
-			e.printStackTrace();
+			mv.addObject("success", false);
 		}
 		
 		return mv;
@@ -135,13 +134,12 @@ public class UserController {
 	@RequestMapping(value="/user/logout.do")
 	public String logout(HttpServletRequest request, HttpSession session) throws Exception {
 		session.invalidate();
-		return "redirect:/?pid=board&cmd=list&page=1&category=001";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/user/deleteAjax.do")
 	public ModelAndView deleteAjax(HttpServletRequest request, HttpSession session) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("jsonView");
+		ModelAndView mv = new ModelAndView("jsonView");
 		
 		try {
 			userService.user_delete((String) session.getAttribute("id"));
@@ -149,22 +147,16 @@ public class UserController {
 			
 			mv.addObject("success", true);
 		} catch(Exception e) {
-			e.printStackTrace();
+			mv.addObject("success", false);
 		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/user/modifyActionAjax.do")
 	public ModelAndView modifyActionAjax(@ModelAttribute("UserVO")UserVO vo,HttpSession session,HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("jsonView");
+		ModelAndView mv = new ModelAndView("jsonView");
 
 		try {
-			vo.setBirth(vo.getBirth_year()+vo.getBirth_month()+vo.getBirth_day());
-			
-			int now = Calendar.getInstance().get(Calendar.YEAR);
-			vo.setAge(now-Integer.parseInt(vo.getBirth_year())+1);
-			
 			userService.user_update(vo);
 			
 			session =request.getSession(true);
@@ -173,20 +165,24 @@ public class UserController {
 			
 			mv.addObject("success", true);
 		}catch(Exception e) {
-			e.printStackTrace();
+			mv.addObject("success", false);
 		}
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/user/reg_id_check.do")
-	public ModelAndView reg_id_check(@ModelAttribute("UserVO")UserVO vo,ModelAndView mv) throws Exception {
-		mv.setViewName("jsonView");
-		UserVO select_vo = new UserVO();
-		select_vo = userService.user_select_vo(vo);
-		mv.addObject("success", 100);
-		if(select_vo != null) mv.addObject("dupl", 1);
-		else mv.addObject("dupl", 0);
+	public ModelAndView reg_id_check(@ModelAttribute("UserVO")UserVO vo) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		try {
+			UserVO select_vo = new UserVO();
+			select_vo = userService.user_select_vo(vo);
+			mv.addObject("success", true);
+			if(select_vo != null) mv.addObject("dupl", 1);
+			else mv.addObject("dupl", 0);
+		} catch(Exception e ) {
+			mv.addObject("success", false);
+		}
 		return mv;
 	}
 }

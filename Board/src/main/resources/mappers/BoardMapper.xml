@@ -18,10 +18,10 @@
 		)
 		</if>
 		ORDER BY BOARD_NUMBER DESC
-		LIMIT #{perpagenum} OFFSET #{startpage}
+		LIMIT #{perpagenum} OFFSET #{startpage_boardnum}
 	</select>
 	
-	<insert id="insert" parameterType="BoardVO" >
+	<insert id="insert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="board_number" >
 		INSERT INTO BOARD (
 			CATEGORY,
 			TITLE,
@@ -42,7 +42,16 @@
 	</insert>
 	
 	<select id="select_vo" parameterType="BoardVO" resultType="BoardVO">
-		SELECT * FROM BOARD WHERE BOARD_NUMBER = #{board_number}
+		SELECT
+			BOARD_NUMBER,
+			TITLE,
+			CONTENT,
+			WRITER,
+			DATE_FORMAT(WRITE_DATE,"%Y.%c.%d %H:%i") as WRITE_DATE
+		FROM 
+			BOARD 
+		WHERE 
+			BOARD_NUMBER = #{board_number}
 	</select>
 	
 	<update id="update_viewcnt" parameterType="BoardVO" >
@@ -53,8 +62,11 @@
 	
 	<update id="update" parameterType="BoardVO">
 		UPDATE BOARD SET
-		TITLE = #{title}, CONTENT = #{content}
-		WHERE BOARD_NUMBER = #{board_number}
+			TITLE = #{title}, 
+			CONTENT = #{content},
+			WRITE_DATE = now()
+		WHERE 
+			BOARD_NUMBER = #{board_number}
 	</update>
 	
 	<delete id="delete" parameterType="BoardVO">

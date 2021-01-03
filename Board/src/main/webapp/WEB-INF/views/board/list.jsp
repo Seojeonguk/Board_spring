@@ -4,50 +4,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<title></title>
-
-<!-- 
-<c:set var="BoardVO.totalcount" value="${BoardVO.totalcount }" />
-<c:set var="BoardVO.startpage" value="${BoardVO.startpage }" />
-<c:set var="BoardVO.endpage" value="${BoardVO.endpage }" />
-<c:set var="BoardVO.page" value="${BoardVO.page }" />
-<c:set var="BoardVO.perpagenum" value="${BoardVO.perpagenum }" />
-<c:set var="BoardVO.pagenum" value="${BoardVO.pagenum }" />
-<c:set var="BoardVO.perpagetotalcount" value="${BoardVO.perpagetotalcount }" />
-<c:set var="BoardVO.category" value="${BoardVO.category }"/>
- -->
-<%
-	int p = (int)pageContext.getAttribute("BoardVO.page");
-	int pn = (int)pageContext.getAttribute("BoardVO.pagenum");
-	int ep = (int)pageContext.getAttribute("BoardVO.endpage");
-	String ctgr = (String)pageContext.getAttribute("BoardVO.category");
-	boolean last_page_chk = false;
-	int st = ((int)Math.ceil((double)p/(double)pn)-1)*pn+1;
-	pageContext.setAttribute("st",st);
-	String session_id = (String)session.getAttribute("id");
-%>
 
 <script>
-	function session_check() {
-		<%
-		if(session_id != null) {
-			out.print("location.href='/?pid=board&cmd=reg&category=" +ctgr + "';" );
-		} else  {
-			out.print("alert('로그인이 필요합니다');");
-			out.print("location.href='/user/login.do';");
-		}
-		%>
-	}
+	$(document).ready(function() {
+		$("#writebtn").click(function(event) {
+			if(<c:out value="${!empty(id)}"/>) {
+				location.href='<c:url value="/?pid=board&cmd=reg&category=${param.category}"/>';
+			}
+			else {
+				alert('로그인이 필요합니다');
+				location.href='<c:url value="/?pid=user&cmd=login"/>';
+			}
+		});
+	});
 </script>	
 </head>
 <body>
-	<div class="container" style="max-width: 700px">
+	<div class="container">
 		<table class="table table-bordered">
 			<tr>
-				<td>번호</td>
+				<td>번호<c:out value="${Page.startpage }"/></td>
 				<td>제목</td>
 				<td>내용</td>
 				<td>조회수</td>
@@ -56,39 +32,37 @@
 			<c:forEach var="row" items="${BoardList }">
 				<tr>
 					<td>${row.board_number }</td>
-					<td><a href="/?pid=board&cmd=view&board_number=${row.board_number}&category=${BoardVO.category }">${row.title}</a></td>
+					<td><a href="/?pid=board&cmd=view&category=${param.category }&board_number=${row.board_number}">${row.title}</a></td>
 					<td>${row.content }</td>
 					<td>${row.view_cnt }</td>
 				</tr>
 			</c:forEach>
 		</table>
 		<div class="text-right">
-			<a href="#" onclick="javascript:session_check(); return false;" class="btn btn-default">글쓰기</a>
+			<a href="#" id="writebtn" class="btn btn-default">글쓰기</a>
 		</div>
 	</div>
 	
 	<!-- pagination start -->
 	<div class="text-center">
 		<ul class="pagination">
-			<c:if test="${BoardVO.page ne 1 }">
-				<li><a href="/board/main_list.do?page=1&category=${BoardVO.category }">&laquo;</a></li>
+			<c:if test="${Page.page ne 1 }">
+				<li><a href="/?pid=<c:out value='${param.pid}'/>&cmd=<c:out value='${param.cmd}'/>&category=<c:out value='${param.category }'/> ">&laquo;</a></li>
 			</c:if>
-			<c:if test="${st ne 1 }">
-				<li><a href="/board/main_list.do?page=<%=st-pn%>&category=${BoardVO.category}">&lt;</a></li>
+			<c:if test="${Page.startpage ne 1 }">
+				<li><a href="/?pid=<c:out value='${param.pid}'/>&cmd=<c:out value='${param.cmd}'/>&category=<c:out value='${param.category }'/>&page=<c:out value='${Page.startpage-Page.pagenum }'/>">&lt;</a></li>
 			</c:if>
-			<%for(int i=st; i<= ep && i<st+pn;i++) { %>
-			<li><a href="/board/main_list.do?page=<%=i%>&category=${BoardVO.category}"><%=i %></a></li>
-			<%if(i==ep) {
-					last_page_chk = true;
-					pageContext.setAttribute("last_page_chk",last_page_chk);} 
-				%>
-			<%} %>
-			<c:if test="${last_page_chk ne true and BoardVO.endpage ne 0 }">
-				<li><a href="/?pid=board&cmd=list&page=<%=st+pn%>&category=${BoardVO.category}">&gt;</a></li>
+			
+			<c:forEach var="ix" begin="${Page.startpage }" end="${Page.startpage+Page.pagenum-1 }">
+				<c:if test="${Page.endpage >= ix }">
+					<li><a href="/?pid=<c:out value='${param.pid}'/>&cmd=<c:out value='${param.cmd}'/>&category=<c:out value='${param.category }'/>&page=<c:out value='${ix }'/>"><c:out value='${ix }'/></a></li>
+				</c:if>
+			</c:forEach>
+			<c:if test="${Page.startpage + Page.pagenum <= Page.endpage }">
+				<li><a href="/?pid=<c:out value='${param.pid}'/>&cmd=<c:out value='${param.cmd}'/>&category=<c:out value='${param.category }'/>&page=<c:out value='${Page.startpage + Page.pagenum }'/>">&gt;</a></li>
 			</c:if>
-			<c:if test="${BoardVO.page ne BoardVO.endpage and BoardVO.endpage ne 0 }">
-				<li>
-					<a href="/?pid=board&cmd=list&page=<c:out value="${BoardVO.endpage }"/>&category=${BoardVO.category}">&raquo;</a></li>
+			<c:if test="${BoardVO.page ne BoardVO.endpage}">
+				<li><a href="/?pid=<c:out value='${param.pid}'/>&cmd=<c:out value='${param.cmd}'/>&category=<c:out value='${param.category }'/>&page=<c:out value="${BoardVO.endpage }"/>">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>

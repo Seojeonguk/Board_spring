@@ -1,16 +1,10 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title></title>
+
 
 <style type="text/css">
 	.btn {
@@ -71,79 +65,76 @@
 </style>
 
 <script>
-	$(function() {
-		<%
-			String cmd = (String)request.getParameter("cmd");
-			if(cmd !=null) {
-		%>
-			var comment = document.getElementById("comment_div");
-			comment.style.display="block";
-		<%
-			} else {
-		%>
-			var comment = document.getElementById("comment_div");
-			comment.style.display="none";
-		<%
-			}
-		%>
-	});
-	function btn(cnt) {
-		var form = document.hidden_form;
-		if(cnt==1) {
-			form.action = '<c:out value="/board/main_modify.do"/>';
-		}else {
-			if(confirm('삭제하시겠습니까?')) {
-				form.action = '<c:out value="/board/main_delete.do"/>';
-			}
-		}
-		form.submit();
-	}
-
-	function comment_insert() {
-		$.ajax({
-			url:"/board/comment_reg.do",
-			type:"POST",
-			data:$('#comment_form').serialize(),
-			dataType:"json",
-			success:function(success) {
-				location.reload();
-				//location.href="/board/main_view.do?board_number=1086&cmd=reload";
-			},
-			error:function(data) {
-				console.log(data);
-			}
+	$(document).ready(function() {
+		$("#modifybtn").click(function() {
+			$("#hidden_form").attr("action","<c:url value='/?pid=board&cmd=modify&category=${param.category}'/>");
+			$("#hidden_form").submit();
 		});
-	}
 
-	function comment_list() {
-		var comment = document.getElementById("comment_div");
-		if(comment.style.display=="none") comment.style.display="block";
-		else comment.style.display="none";
-	}
-
-	function comment_delete(number) {
-		if(confirm('댓글을 삭제하시겠습니까?')) {
-			var comment_number = document.getElementById("comment_number");
-			var action_url = "/board/comment_delete.do";
-			comment_number.value = number;
+		$("#deletebtn").click(function() {
 			$.ajax({
-				url: action_url,
+				url:"<c:url value='/board/deleteAjax.do'/>",
+				type:"POST",
+				data:$('#hidden_form').serialize(),
+				dataType:"json",
+				success:function(success) {
+					alert('삭제가 완료되었습니다.');
+					location.href='/?pid=<c:out value="${param.pid}"/>&cmd=list&category=<c:out value="${param.category}"/>/>';
+				},
+				error:function(data) {
+					console.log(data);
+				}
+			});
+		});
+
+		$("#commentbtn").click(function() {
+			$.ajax({
+				url:"<c:url value='/board/comment_reg.do'/>",
 				type:"POST",
 				data:$('#comment_form').serialize(),
 				dataType:"json",
 				success:function(success) {
-					location.href="/board/main_view.do?board_number=1086&cmd=reload";
+					location.reload();
 				},
 				error:function(data) {
-					console.log('삭제 실패하였습니다.');
+					console.log(data);
 				}
 			});
-		}
-	}
+		});
+
+		$("#comment_div_btn").click(function() {
+			var comment = document.getElementById("comment_div");
+			if(comment.style.display=="none") 
+				comment.style.display="block";
+			else 
+				comment.style.display="none";
+		});
+
+		$(".comment_delete").click(function() {
+			if(confirm('댓글을 삭제하시겠습니까?')) {
+				$("#comment_number").val($(this).attr("comment_number"));
+				$.ajax({
+					url: "<c:url value='/board/comment_delete.do'/>",
+					type:"POST",
+					data:$('#comment_form').serialize(),
+					dataType:"json",
+					success:function(success) {
+						location.reload();
+					},
+					error:function(data) {
+						console.log('삭제 실패하였습니다.');
+					}
+				});
+			}
+		});
+	});
 </script>
 </head>
 <body>
 	<div class="container" style="max-width:700px">
+		<form name="hidden_form" id="hidden_form" action="/board/main_modify.do" method="post">
+			<input type="hidden" id="board_number" name="board_number" value="${resultVO.board_number }"/>
+		</form>
 		<table class="table">
 			<tr>
 				<td>게시판 제목</td>
@@ -157,11 +148,7 @@
 			
 			<tr>
 				<td>작성 시간</td>
-				<td>
-					<fmt:parseDate value="${resultVO.write_date }" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
-					<fmt:formatDate value="${date }" pattern="yyyy.MM.dd HH:mm:ss" var="write_date"/>
-					<c:out value="${write_date }"/>
-				</td>
+				<td><c:out value="${resultVO.write_date }"/></td>
 			</tr>
 			
 			<tr>
@@ -172,12 +159,14 @@
 		
 		<div class="content_btn">
 			<div class="content_btn_left">
-				<input type="button" class="btn btn-default" onclick="comment_list(); return false;" value="댓글  <c:out value='${comment_count }'/>"/>
+				<a href="#" id="comment_div_btn" class="btn btn-default">댓글  <c:out value='${comment_count }'/></a>
 			</div>
 			<div class="content_btn_right">
-				<a href="/board/main_list.do?page=1&category=001" class="btn btn-default" >목록</a>
-				<a href="#" onclick="btn(1);" class="btn btn-default">수정</a>
-				<a href="#" onclick="btn(2); return 0" class="btn btn-default">삭제</a>
+				<a href="/?pid=<c:out value='${param.pid }'/>&cmd=list&category=<c:out value='${param.category }'/>" class="btn btn-default" >목록</a>
+				<c:if test="${id eq resultVO.writer }">
+					<a href="#" id="modifybtn" class="btn btn-default">수정</a>
+					<a href="#" id="deletebtn" class="btn btn-default">삭제</a>
+				</c:if>
 			</div>
 		</div>
 		
@@ -195,7 +184,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 								<li><a href="#">수정</a></li>
-								<li><a href="#" onclick="comment_delete(<c:out value="${list.comment_number}"/>); return false;">삭제</a></li>
+								<li><a href="#" class="comment_delete" comment_number="<c:out value='${list.comment_number}'/>">삭제</a></li>
 							</ul>
 						</div>
 					</div>
@@ -208,30 +197,20 @@
 				</c:forEach>
 			</div>
 			<form name="comment_form" id="comment_form">
+				<input type="hidden" name="comment_writer" value="${id }"/>
+				<input type="hidden" name="board_number" value="${resultVO.board_number }"/>
+				<input type="hidden" id="comment_number" name="comment_number" value="0"/>
 				<div class="form-group">
 					<label><c:out value="${id }"></c:out></label>
 					<textarea class="form-control" id="comment_content" name="comment_content" cols="20"></textarea>
 				</div>
 				<div class="text-right">
-					<input type="hidden" name="comment_writer" value="${id }"/>
-					<input type="hidden" name="board_number" value="${resultVO.board_number }"/>
-					<input type="hidden" id="comment_number" name="comment_number" value="0"/>
-					<input type="submit" onclick="javascipt:comment_insert(); return false;" class="btn btn-default" value="등록">
-					
+					<a href="#" id="commentbtn" class="btn btn-default">등록</a>
 				</div>
 				
 			</form>
 		</div>
 		<!-- 댓글 영역 종료 -->
-		
-		<form name="hidden_form" action="/board/main_modify.do" method="post">
-			<input type="hidden" id="board_number" name="board_number" value="${resultVO.board_number }"/>
-			<input type="hidden" id="category" name="category" value="${resultVO.category }"/>
-			<input type="hidden" id="title" name="title" value="${resultVO.title }"/>
-			<input type="hidden" id="writer" name="writer" value="${resultVO.writer }"/>
-			<input type="hidden" id="write_date" name="write_date" value="${resultVO.write_date }"/>
-			<input type="hidden" id="content" name="content" value="${resultVO.content }"/>
-		</form>
 	</div>
 </body>
 </html>

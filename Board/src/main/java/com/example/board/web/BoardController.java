@@ -2,6 +2,7 @@ package com.example.board.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.example.board.Service.BoardService;
 import com.example.board.Service.BoardVO;
 import com.example.board.Service.CommentService;
 import com.example.board.Service.CommentVO;
+import com.example.util.util;
 
 /**
  * Handles requests for the application home page.
@@ -41,26 +43,52 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/main_list.do")
 	public String list(@ModelAttribute("BoardVO")BoardVO vo,Model model,HttpSession session) throws Exception {
-		vo.setStartpage((vo.getPage()-1)*vo.getPerpagenum());
-		vo.setTotalcount(boardService.list_count(vo));
-		vo.setCalPage(vo.getPerpagenum(),vo.getTotalcount());
 		List<BoardVO> list = boardService.listAll(vo);
 		model.addAttribute("BoardList",list);
+		model.addAttribute("Page",vo);
 		return "board/list";
 	}
 	
 	@RequestMapping(value="/board/main_write.do")
-	public String Write(@ModelAttribute("BoardVO")BoardVO vo,HttpSession session) throws Exception {
+	public String Write(@ModelAttribute("BoardVO")BoardVO vo,Model model,HttpSession session,HttpServletRequest request) throws Exception {
+		util util = new util();
 		
-		
-		
+		String cmd = util.null_chk(request.getParameter("cmd"), "");
+		if(cmd.equals("modify")) {
+			vo = boardService.select_vo(vo);
+			model.addAttribute("BoardVO", vo);
+		}
 		return "board/write";
 	}
 	
-	@RequestMapping(value="/board/main_writeAction.do",method=RequestMethod.POST)
-	public String WriteAction(@ModelAttribute("BoardVO") BoardVO vo) throws Exception {
-		boardService.insert(vo);
-		return "redirect:/board/main_list.do?page=1&category=" + vo.getCategory();
+	
+	@RequestMapping(value="/board/writeAjax.do",method=RequestMethod.POST)
+	public ModelAndView writeAjax(@ModelAttribute("BoardVO") BoardVO vo) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		try {
+			boardService.insert(vo);
+			
+			mv.addObject("success",true);
+			mv.addObject("board_number", vo.getBoard_number());
+		} catch(Exception e) {
+			mv.addObject("success",false);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="/board/modifyAjax.do",method=RequestMethod.POST)
+	public ModelAndView modifyAjax(@ModelAttribute("BoardVO") BoardVO vo) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		try {
+			boardService.modify(vo);
+			
+			mv.addObject("success",true);
+			mv.addObject("board_number", vo.getBoard_number());
+		} catch(Exception e) {
+			mv.addObject("success",false);
+			e.printStackTrace();
+		}
+		return mv;
 	}
 	
 	@RequestMapping(value="/board/main_view.do")
@@ -77,39 +105,44 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	
-	@RequestMapping(value="/board/main_modify.do",method=RequestMethod.POST)
-	public String modify(@ModelAttribute("BoardVO") BoardVO vo,Model model) throws Exception {
-		return "board/modify";
-	}
-	
-	
-	
-	@RequestMapping(value="/board/main_modifyAction.do", method=RequestMethod.POST)
-	public String modifyAction(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
-		boardService.modify(vo);
-		return "redirect:/board/main_list.do?page=1&category="+vo.getCategory();
-	}
-	
-	@RequestMapping(value="/board/main_delete.do",method=RequestMethod.POST)
-	public String delete(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
-		boardService.delete(vo);
-		return "redirect:/board/main_list.do?page=1&category=001";
+	@RequestMapping(value="/board/deleteAjax.do",method=RequestMethod.POST)
+	public ModelAndView deleteAjax(@ModelAttribute("BoardVO")BoardVO vo) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+		try {
+			boardService.delete(vo);
+			
+			mv.addObject("success",true);
+		} catch(Exception e) {
+			mv.addObject("success",false);
+		}
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="/board/comment_reg.do",method=RequestMethod.POST)
 	public ModelAndView comment_reg(@ModelAttribute("CommentVO")CommentVO vo) throws Exception {
-		commentService.insert(vo);
 		ModelAndView mv = new ModelAndView("jsonView");
-		mv.addObject("success", true);
+		try {
+			commentService.insert(vo);
+			
+			mv.addObject("success", true);
+		} catch(Exception e) {
+			mv.addObject("success", false);
+		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/board/comment_delete.do")
 	public ModelAndView comment_delete(@ModelAttribute("CommentVO")CommentVO vo) throws Exception {
-		commentService.delete(vo);
 		ModelAndView mv = new ModelAndView("jsonView");
-		mv.addObject("success",true);
+		try {
+			commentService.delete(vo);
+			
+			mv.addObject("success",true);
+		}catch (Exception e) {
+			mv.addObject("success",false);
+		}
+		
 		return mv;
 	}
 }

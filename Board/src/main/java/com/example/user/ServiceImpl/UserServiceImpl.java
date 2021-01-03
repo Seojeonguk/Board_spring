@@ -1,5 +1,7 @@
 package com.example.user.ServiceImpl;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,11 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int user_update(UserVO vo) throws Exception {
+		vo.setBirth(vo.getBirth_year()+vo.getBirth_month()+vo.getBirth_day());
+		
+		int now = Calendar.getInstance().get(Calendar.YEAR);
+		vo.setAge(now-Integer.parseInt(vo.getBirth_year())+1);
+		
 		return userDAO.user_update(vo);
 	}
 }
