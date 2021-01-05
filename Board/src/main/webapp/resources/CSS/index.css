@@ -2,7 +2,27 @@
 	margin:0;
 	padding:0;
 	box-sizing: border-box;
-	color: #444;
 	font-family: calibri;
 }
 
+li {
+	list-style: none;
+}
+
+a,a:link, a:visited {
+	text-decoration: none;
+}
+
+.content {
+	height: 100vh;
+	width: 100vw;
+	padding-top: 50px;
+}
+
+.content.menu-toggle-active {
+	width: 67.5vw;
+}
+
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6, span{
+	font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
+}

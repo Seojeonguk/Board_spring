@@ -1,0 +1,24 @@
+footer ul {
+	padding: 20px 50px;
+}
+
+footer li {
+	display:list-item;
+	line-height: 20px;
+	font-size: 13px;
+	align-items: center;
+}
+
+footer .footer_inner ul li {
+	word-break:break-word;
+}
+
+footer .footer_inner {
+	border-top: 5px solid #555;
+	color:#bbb;
+	background: #252525;
+}
+
+footer a:visited {
+	color: #bbb;
+}

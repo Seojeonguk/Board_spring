@@ -13,6 +13,10 @@
 		<c:when test="${param.cmd eq 'reg' or param.cmd eq 'modify'}">
 			<jsp:include page="/user/reg.do"/>
 		</c:when>
+		
+		<c:when test="${param.cmd eq 'logout' }">
+			<jsp:include page="/user/logout.do"/>
+		</c:when>
 	</c:choose>
 </body>
 </html>

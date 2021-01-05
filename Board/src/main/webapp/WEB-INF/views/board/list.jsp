@@ -23,7 +23,7 @@
 	<div class="container">
 		<table class="table table-bordered">
 			<tr>
-				<td>번호<c:out value="${Page.startpage }"/></td>
+				<td>번호</td>
 				<td>제목</td>
 				<td>내용</td>
 				<td>조회수</td>
