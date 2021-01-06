@@ -1,44 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
+
 <link rel="stylesheet" href="<c:url value='resources/CSS/user/login.css'/>">
+
 <script>
 	$(document).ready(function() {
 		$("#loginbtn").click(function(event) {
 			event.preventDefault();
 
 			$.ajax({
-				url:"<c:url value='/user/loginActionAjax.do' />",
-				type:"POST",
-				data:$('#loginform').serialize(),
-				dataType:"json",
-				success:function(response) {
-					if(response.success==0) {
-						if(response.error_code==0) {
+				url : "<c:url value='/user/loginActionAjax.do' />",
+				type : "POST",
+				data : $('#loginform').serialize(),
+				dataType : "json",
+				success : function(response) {
+					if (response.success == 0) {
+						if (response.error_code == 0) {
 							alert("아이디를 찾을 수 없습니다!");
-						}
-						else if(response.error_code==1) {
+						} else if (response.error_code == 1) {
 							alert("비밀번호가 틀렸습니다!");
 						}
-					}
-					else {
-						location.href="<c:url value='/'/>";
+					} else {
+						location.href = "<c:url value='/'/>";
 					}
 				},
-				error:function(response) {
+				error : function(response) {
 					alert("에러");
 				}
 			});
 		});
 	});
-	
 </script>
-</head>
-<body>
-	
-	<div class="login_container">
+
+
+<div class="login_container">
 		<form id="loginform" class="login" action="" method="post" name="form">
 			<h2>Login</h2>
 			<div class="group">
@@ -58,5 +53,3 @@
 			<p class="ss">Don't have an account ? <a href="/?pid=user&cmd=reg">Signup</a></p>
 		</form>
 	</div>
-</body>
-</html>

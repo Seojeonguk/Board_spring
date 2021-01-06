@@ -5,65 +5,6 @@
 <html>
 <head>
 
-
-<style type="text/css">
-	.btn {
-		border-radius: inherit !important;
-	}
-	.dropdown-menu {
-		min-width: 50px !important;
-	}
-	.content_btn {
-		border-bottom: 4px solid rgba(255,255,255,0);
-		border-radius: 0px;
-	}
-	.content_btn_left {
-		float: left;
-		border-radius: inherit;
-		border-bottom: 8px solid rgba(255,255,255,0);
-	}
-	
-	.content_btn_right{
-		float: right;
-		border-radius: inherit;
-		border-bottom: 8px solid rgba(255,255,255,0);
-	}
-
-	.comment_div {
-		background: rgb(239,247,235);
-		border: 30px solid rgba(255,255,255,0);
-		clear: both;
-	}
-	
-	.comment_div_div {
-		border-bottom: 8px solid rgba(255,255,255,0);
-	}
-
-	.comment_writer_div {
-		border-top:8px solid rgba(255,255,255,0);
-		font-size:16px;
-		font-weight: 700;
-	}
-	.comment_writer_span {
-		float:left;
-		color: rgb(138, 131, 126) !important;
-	}
-	.comment_writer_icon {
-		float:right;
-	}
-	.comment_content {
-		word-break: break-all;
-		clear: left;
-		border-top: 5px solid rgba(255,255,255,0);
-		color: rgb(138, 131, 126) !important;
-	}
-	.comment_info {
-		border-top: 3px solid rgba(255,255,255,0);
-		border-bottom: 0.5px solid black;
-		opacity: .5;
-	}
-</style>
-
 <script>
 	$(document).ready(function() {
 		$("#modifybtn").click(function() {

@@ -20,3 +20,4 @@
  + 21.01.03 사용자 구조 변경(회원가입,수정 한페이지로 통일, 각 버튼 기능 jquery로 변경)
  + 21.01.04 게시판 구조 변경(글쓰기,수정 페이지 통일, 각 버튼 기능 jquery 변경), login ui변경
  + 21.01.06 bootstrap제거, CSS, JS 일부작성 / footer, header css변경
+ + 21.01.07 bootstrap.js제거, login css변경, 사용자 reg css로 shake효과 추가

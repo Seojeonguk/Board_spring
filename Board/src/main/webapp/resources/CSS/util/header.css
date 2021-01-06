@@ -6,6 +6,7 @@ header {
 	background: #262626;
 	width: 100%;
 	box-sizing: border-box;
+	display: block;
 }
 
 header .logo {

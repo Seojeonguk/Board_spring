@@ -1,33 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
+<link rel="stylesheet" href="<c:url value='resources/CSS/user/reg.css'/>">
 
-<script>
+<script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitbtn").click(function() {
 			event.preventDefault();
-
+	
 			var form=document.form;
 			var pw = form.password.value;
 			var pw_c = form.password_chk.value;
 			if(pw ==null || pw == "" || pw_c == null || pw_c == "" || pw!=pw_c) {
 				document.form.password_chk.style.border = "1px solid red";
-				$("#password_chk").effect("shake");
 				document.form.password.focus();
 				return false;
 			}
 			if(form.gender.value=="N") {
-				$("#gender-div").effect("shake");
+				shaking(document.getElementById("gender-div"));
 				return false;
 			}
 			if(form.level.value==7) {
-				$("#level-div").effect("shake");
+				shaking(form.level);
 				return false;
 			}
-
+			
 			var url = "";
 			if(<c:out value="${param.cmd eq 'reg'}"/>) {
 				url = "<c:url value='/user/regActionAjax.do'/>";
@@ -35,7 +32,7 @@
 			else if(<c:out value="${param.cmd eq 'modify'}"/>) { 
 				url = "<c:url value='/user/modifyActionAjax.do'/>";
 			}
-			
+				
 			$.ajax({
 				url:url,
 				type:"POST",
@@ -49,12 +46,11 @@
 				}
 			});
 		});
-
 		/* ID입력시 규칙 확인 후 입력 칸 벗어날 경우 ID존재여부 확인 */
 		$("#id").focusout(function() {
 			var regex = /^[a-z0-9][a-z0-9_\-]{4,19}$/;
 			if(!regex.test(this.value)) {
-				$("#id").effect("shake");
+				shaking(this);
 				document.getElementById("id_error").style.display="block";
 				document.getElementById("id_error").innerHTML="5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.";
 			}
@@ -67,6 +63,7 @@
 					success:function(success) {
 						if(success.dupl == 1) {
 							<!--span값 변경-->
+							shaking(this);
 							document.getElementById("id_error").innerHTML="이미 존재하는 아이디입니다.";
 							document.getElementById("id_error").style.display="block";
 						}
@@ -79,8 +76,9 @@
 					}
 				});
 			}
+			
 		});
-
+	
 		/* 비밀번호 입력 후 규칙 확인 */
 		$("#password").focusout(function() {
 			var regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\{\}\/?.,;:|\)*~`!^\-_+@\#$%&\\\=\(]).{8,20}$/;
@@ -88,14 +86,13 @@
 			if(!regex.test(this.value)) {
 				document.form.password.style.border="1px solid red";
 				error.style.display="block";
-				$("#password").effect("shake");
 			}
 			else {
 				error.style.display="none";
 				document.form.password.style.border="1px solid #ccc";
 			}
 		});
-
+	
 		/* 비밀번호 확인 입력 후 일치여부 확인 */
 		$("#password_chk").focusout(function(){
 			var pw = document.form.password.value;
@@ -105,21 +102,19 @@
 			if(pw ==null || pw == "" || pw_c == null || pw_c == "" || pw!=pw_c) {
 				error.style.display = "block";
 				document.form.password_chk.style.border = "1px solid red";
-				$("#password_chk").effect("shake");
 			}
 			else {
 				error.style.display = "none";
 				document.form.password_chk.style.border = "1px solid green";
 			}
 		});
-
+	
 		/* 비밀번호 입력 중에는 에러 문구 가리기 */
 		$("#password_chk").keydown(function() {
 			var error=document.getElementById("pw_chk_error");
 			error.style.display="none";
 		});
-
-		/* 회원 탈퇴 하기 버튼 */
+			/* 회원 탈퇴 하기 버튼 */
 		$("#secessionbtn").click(function() {
 			$.ajax({
 				url:"/user/deleteAjax.do",
@@ -135,14 +130,20 @@
 			});
 		});
 	});
+
+	function shaking(obj) {
+		obj.classList.add("shake");
+		setTimeout(function() {
+			obj.classList.remove("shake");
+		},1000);
+	}
 </script>
-</head>
-<body>
-	<div class="container" style="max-width:380px">
+
+<div class="container">
 		<form action="#" name="form" id="form">
 			<div class="form-group">
 				<label>아이디</label>
-				<input type="text" name="id" id="id" class="form-control" pattern="^[a-z0-9][a-z0-9_\-]{4,19}$" placeholder="아이디" minlength="5" value="<c:out value='${UserVO.id }'/>"  maxlength="20" required <c:if test="${!empty(UserVO) }">readonly</c:if>>
+				<input type="text" name="id" id="id" pattern="^[a-z0-9][a-z0-9_\-]{4,19}$" placeholder="아이디" minlength="5" value="<c:out value='${UserVO.id }'/>"  maxlength="20" required <c:if test="${!empty(UserVO) }">readonly</c:if>>
 				<span id="id_error" style="color:red; display:none;">5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</span>
 			</div>
 			<div class="form-group">
@@ -150,7 +151,7 @@
 				<input type="password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+-=.,;:|~`?=./\*{}]).{8,20}$" name="password" id="password" class="form-control" minlength="4" maxlength="20" placeholder="비밀번호" value="<c:out value='${UserVO.password }'/>" required/>
 				<span id="pw_error" style="color:red; display:none;">8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
 				<label>비밀번호 확인</label>
-				<input type="password" name="password_chk" id="password_chk" class="form-control" minlength="4" maxlength="20" placeholder="비밀번호 재입력" onkeydown="key_down(this);" value="<c:out value='${UserVO.password }'/>" required/>
+				<input type="password" name="password_chk" id="password_chk" class="form-control" minlength="4" maxlength="20" placeholder="비밀번호 재입력" value="<c:out value='${UserVO.password }'/>" required/>
 				<span id="pw_chk_error" style="color:red; display:none;">비밀번호가 일치하지 않습니다.</span>
 			</div>
 			
@@ -250,5 +251,3 @@
 			</div>
 		</form>
 	</div>
-</body>
-</html>

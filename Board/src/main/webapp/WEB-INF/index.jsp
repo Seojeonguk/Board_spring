@@ -7,16 +7,24 @@
 <meta name="viewport" content="width=device-width", initial-scale="1.0">
 <title></title>
 </head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
 <link rel="stylesheet" href="<c:url value='resources/CSS/index.css'/>">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/4102b1c1c1.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="<c:url value='resources/JS/index.js'/>"></script>
+
+<script>
+	$(window).resize(function() {
+		var width_size = window.innerWidth;
+		// 800 이하인지 if문으로 확인
+		if (width_size >= 991) {
+			$('.content').removeClass('menu-toggle-active');
+			$('nav').removeClass('active');
+		}
+	})
+</script>
 <body>
 	<jsp:include page="/WEB-INF/views/util/header.jsp" flush="false"/>
 	<div class="content">
